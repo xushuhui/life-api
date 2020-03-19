@@ -15,3 +15,14 @@ Route::get('think', function () {
 });
 
 Route::get('hello/:name', 'index/hello');
+Route::get('banner/id/:id', 'banner/getBannerById');
+Route::get('banner/name/:name', 'banner/getBannerByName');
+Route::get('theme/by/names', 'theme/getThemes');
+Route::get('theme/name/:name/with_spu', 'theme/getThemeByName');
+Route::get('activity/name/:name', 'activity/getActivityByName');
+Route::get('activity/name/:name', 'activity/getActivityByNameWithSpu');
+Route::get('coupon/by/category/:id', 'coupon/getCouponByCategory');
+Route::get('coupon/whole_store', 'coupon/wholeStore');
+Route::get('coupon/myself/by/status/:status', 'coupon/myself');
+Route::get('coupon/myself/available/with_category', 'coupon/myselfWithCategory');
+Route::post('coupon/collect/:id', 'coupon/collect');
