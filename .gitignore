@@ -1,5 +1,6 @@
-/.idea
-/.vscode
 /vendor
-*.log
+/.idea
+Homestead.json
+Homestead.yaml
 .env
+.phpunit.result.cache
