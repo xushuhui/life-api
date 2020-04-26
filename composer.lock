@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "75771059522c0bbd7e778809d48c9f25",
+    "content-hash": "881a0ec8a6f4409452c61d9ca19d0c97",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1527,6 +1527,89 @@
                 "php"
             ],
             "time": "2020-04-10T16:34:50+00:00"
+        },
+        {
+            "name": "nwidart/laravel-modules",
+            "version": "7.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nWidart/laravel-modules.git",
+                "reference": "245426d4d0c0293a44e4cc8cc44d1c5d50e0d0ba"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nWidart/laravel-modules/zipball/245426d4d0c0293a44e4cc8cc44d1c5d50e0d0ba",
+                "reference": "245426d4d0c0293a44e4cc8cc44d1c5d50e0d0ba",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "ext-json": "*",
+                "php": "^7.2.5"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.16",
+                "laravel/framework": "^7.0",
+                "mockery/mockery": "~1.0",
+                "orchestra/testbench": "^5.0",
+                "phpstan/phpstan": "^0.12.14",
+                "phpunit/phpunit": "^8.5",
+                "spatie/phpunit-snapshot-assertions": "^2.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Nwidart\\Modules\\LaravelModulesServiceProvider"
+                    ],
+                    "aliases": {
+                        "Module": "Nwidart\\Modules\\Facades\\Module"
+                    }
+                },
+                "branch-alias": {
+                    "dev-master": "7.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Nwidart\\Modules\\": "src"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Widart",
+                    "email": "n.widart@gmail.com",
+                    "homepage": "https://nicolaswidart.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel Module management",
+            "keywords": [
+                "laravel",
+                "module",
+                "modules",
+                "nwidart",
+                "rad"
+            ],
+            "funding": [
+                {
+                    "url": "https://github.com/nwidart",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-04-14T17:21:11+00:00"
         },
         {
             "name": "opis/closure",
