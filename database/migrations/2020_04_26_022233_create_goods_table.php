@@ -15,8 +15,11 @@ class CreateGoodsTable extends Migration
     {
         Schema::create('goods', function (Blueprint $table) {
             $table->id();
+            $table->string("name",10);
+            $table->string("photo")->comment("图片");
             $table->decimal("price")->default(0);
             $table->decimal("discount_price")->default(0);
+            $table->integer('store_id');
             $table->timestamps();
             $table->softDeletes();
         });

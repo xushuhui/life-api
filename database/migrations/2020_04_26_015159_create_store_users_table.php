@@ -15,7 +15,10 @@ class CreateStoreUsersTable extends Migration
     {
         Schema::create('store_users', function (Blueprint $table) {
             $table->id();
-
+            $table->char('phone',11)->unique();
+            $table->string('name',5);
+            $table->integer('store_id');
+            $table->string('password',60);
             $table->timestamps();
             $table->softDeletes();
         });
