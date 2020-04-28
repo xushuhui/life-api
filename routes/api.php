@@ -17,4 +17,15 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::post('verificationCodes', 'VerificationCodesController@store')->name('api.verificationCodes.store');
+// 小程序登录
+Route::post('weapp/authorizations', 'AuthorizationsController@weappStore')
+    ->name('weapp.authorizations.store');
+
+// 刷新 token
+Route::put('authorizations/current', 'AuthorizationsController@update')
+    ->name('weapp.authorizations.update');
+// 删除 token
+Route::delete('authorizations/current', 'AuthorizationsController@destroy')
+    ->name('weapp.authorizations.destroy');
+Route::get('users/{user}', 'UsersController@show')
+    ->name('weapp.users.show');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Core\Code;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -28,8 +29,7 @@ class Controller extends BaseController
     public function setCode($code)
     {
         $this->code = $code;
-        //TODO message
-        //$this->message = CodeTable::$table[$code];
+        $this->message = Code::$table[$code];
         return $this->toJson();
     }
 
