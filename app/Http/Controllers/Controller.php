@@ -33,10 +33,10 @@ class Controller extends BaseController
         return $this->toJson();
     }
 
-    public function setData($data)
+    public function setData(array $data = [])
     {
         $this->data = $data;
-        $this->toJson();
+        return $this->toJson();
     }
 
     public function getData()

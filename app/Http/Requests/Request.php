@@ -16,4 +16,11 @@ class Request extends FormRequest
     {
         return true;
     }
+    public function attributes()
+    {
+        return [
+            'nickname'  => '昵称',
+            'phone' => '手机',
+        ];
+    }
 }
