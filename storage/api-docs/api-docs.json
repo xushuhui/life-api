@@ -5,19 +5,54 @@
         "version": "0.1"
     },
     "paths": {
+        "/api/stores": {
+            "get": {
+                "summary": "首页商家列表",
+                "operationId": "App\\Http\\Controllers\\StoreController::index",
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    }
+                }
+            }
+        },
+        "/api/store/search": {
+            "get": {
+                "summary": "搜索商家",
+                "operationId": "App\\Http\\Controllers\\StoreController::search",
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    }
+                }
+            }
+        },
+        "/api/store/filter": {
+            "get": {
+                "summary": "商家筛选",
+                "operationId": "App\\Http\\Controllers\\StoreController::filter",
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    }
+                }
+            }
+        },
+        "/api/stores/1": {
+            "get": {
+                "summary": "商家详情",
+                "operationId": "App\\Http\\Controllers\\StoreController::show",
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    }
+                }
+            }
+        },
         "/api/user": {
             "get": {
                 "summary": "查询用户资料",
                 "operationId": "App\\Http\\Controllers\\UserController::show",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "schema": {
-                            "type": "int"
-                        }
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "success"
@@ -27,29 +62,22 @@
             "put": {
                 "summary": "修改用户资料",
                 "operationId": "App\\Http\\Controllers\\UserController::update",
-                "parameters": [
-                    {
-                        "name": "Accept",
-                        "in": "header",
-                        "content": "application/json"
-                    }
-                ],
                 "requestBody": {
                     "content": {
                         "application/json": {
                             "schema": {
                                 "properties": {
-                                    "id": {
-                                        "type": "int"
+                                    "nickname": {
+                                        "type": "string"
                                     },
-                                    "name": {
+                                    "phone": {
                                         "type": "string"
                                     }
                                 },
                                 "type": "object",
                                 "example": {
-                                    "id": 10,
-                                    "name": "Jessica Smith"
+                                    "nickname": "Jessica Smith",
+                                    "phone": "13012341234"
                                 }
                             }
                         }
@@ -57,7 +85,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": ""
+                        "description": "{code:0}"
                     }
                 }
             }

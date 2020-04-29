@@ -3,24 +3,34 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\Coupons;
+use App\Models\Store;
+use App\Models\User;
+
 class LikeController extends Controller
 {
     public function stores()
     {
-        return $this->setData();
+        $likes = request()->user()->likes()->with('likeable')->paginate(20);
+        return $this->setData($likes);
     }
-    public function store()
+    public function store(int $id)
     {
+        $store = Store::query()->find($id);
+        request()->user()->like($store);
         return $this->succeed();
     }
 
-    public function coupon()
+    public function coupon(int $id)
     {
+        $coupon = Coupons::query()->find($id);
+        request()->user()->like($coupon);
         return $this->succeed();
     }
 
     public function coupons()
     {
-        return $this->setData();
+        $likes = request()->user()->likes()->with('likeable')->paginate(20);
+        return $this->setData($likes);
     }
 }
