@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'PRC',
+    'timezone' => 'Asia/Shanghai',
 
     /*
     |--------------------------------------------------------------------------
@@ -174,7 +174,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
+        Overtrue\LaravelWechat\ServiceProvider::class,
     ],
 
     /*

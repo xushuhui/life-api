@@ -1,0 +1,31 @@
+GET http://life.test/api/user
+Accept: */*
+Cache-Control: no-cache
+Accept: application/json
+Content-Type: application/json
+Authorization: {{token}}
+
+
+
+
+###
+POST http://life.test/api/like/store/1
+Accept: */*
+Cache-Control: no-cache
+Accept: application/json
+Content-Type: application/json
+Authorization: {{token}}
+
+
+###
+GET http://life.test/api/like/stores
+Accept: */*
+Cache-Control: no-cache
+Accept: application/json
+Content-Type: application/json
+Authorization: {{token}}
+
+
+
+###
+
