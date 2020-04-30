@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Store;
-use Illuminate\Http\Request;
 use OpenApi\Annotations as OA;
 
 class StoreController extends Controller
@@ -33,11 +32,13 @@ class StoreController extends Controller
         $stores = Store::query()->where('name','like',"%$name%")->paginate(10);
         return $this->setData($stores);
     }
+
     /**
      * @OA\Get(
      *     path="/api/store/filter", summary="商家筛选",
      *     @OA\Response(response="200", description="success")
      * )
+     * @param int $type
      * @return \Illuminate\Http\JsonResponse
      */
     public function filter(int $type)
@@ -54,6 +55,7 @@ class StoreController extends Controller
      */
     public function show(int $id)
     {
-        return $this->setData();
+        $data = Store::query()->find($id);
+        return $this->setData($data);
     }
 }

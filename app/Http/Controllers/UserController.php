@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Http\Requests\UserRequest;
-use EasyWeChatComposer\EasyWeChat;
-use Illuminate\Support\Facades\Cache;
-
+use App\Models\User;
 use OpenApi\Annotations as OA;
 
 /**
@@ -30,7 +27,10 @@ class UserController extends Controller
      */
     public function update(UserRequest $request)
     {
-
+        $user           = $request->user();
+        $user->nickname = $request->nickname;
+        $user->phone    = $request->phone;
+        $user->save();
         return $this->succeed();
     }
 
@@ -41,7 +41,7 @@ class UserController extends Controller
      */
     public function show()
     {
-        return $this->setData();
+        return $this->setData(request()->user());
     }
 
     /**
@@ -53,6 +53,7 @@ class UserController extends Controller
      */
     public function invites()
     {
-        return $this->setData();
+        $data = User::query()->where("parent_id", request()->user()->id)->select("phone,nickname")->get();
+        return $this->setData($data);
     }
 }

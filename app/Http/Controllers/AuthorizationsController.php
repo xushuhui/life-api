@@ -5,11 +5,8 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Requests\WeappAuthorizationRequest;
-use App\Models\User;
 use App\Services\WeappService;
-use EasyWeChatComposer\EasyWeChat;
 use Illuminate\Support\Facades\Auth;
-use Overtrue\LaravelWeChat\Facade as LaravelWeChat;
 
 class AuthorizationsController extends Controller
 {
@@ -20,10 +17,19 @@ class AuthorizationsController extends Controller
         $this->weappService = $weappService;
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/authorizations", summary="小程序",
+     *     @OA\Response(response="200", description="success")
+     * )
+     * @param WeappAuthorizationRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(WeappAuthorizationRequest $request)
     {
-        $wxResult = $this->weappService->getOpenId($request->code);
-        if ($wxResult) {
+        $code     = $request->input('code');
+        $wxResult = $this->weappService->getOpenId($code);
+        if (!$wxResult) {
             return $this->fail(10001);
         }
         $token = $this->weappService->grantToken($wxResult);
@@ -33,6 +39,7 @@ class AuthorizationsController extends Controller
     public function update()
     {
         $token = Auth::guard('api')->refresh();
+
         return $this->respondWithToken($token);
     }
 
@@ -47,7 +54,7 @@ class AuthorizationsController extends Controller
         return $this->setData([
             'access_token' => $token,
             'token_type'   => 'Bearer',
-            'expires_in'   => Auth::guard('api')->factory()->getTTL() * 60
+            'expires_in' => Auth::guard('api')->factory()->getTTL() * 3600 * 24 * 100
         ]);
     }
 
