@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::middleware('auth:api')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
+});
 
 // 小程序登录
 Route::post('authorizations', 'AuthorizationsController@store');
@@ -26,10 +26,9 @@ Route::put('authorizations', 'AuthorizationsController@update');
 Route::delete('authorizations', 'AuthorizationsController@destroy');
 
 
-Route::get('user/invites', 'UserController@invites');
-Route::get('user/{user}', 'UserController@show');
+Route::get('user', 'UserController@show');
 Route::put('user', 'UserController@update');
-
+Route::get('user/invites', 'UserController@invites');
 
 Route::get('like/stores', 'LikeController@stores');
 Route::post('like/store/{id}', 'LikeController@store');

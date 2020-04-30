@@ -15,13 +15,13 @@ class CreateStoresTable extends Migration
     {
         Schema::create('stores', function (Blueprint $table) {
             $table->id();
-            $table->string("name",15)->comment("店铺名称");
-            $table->string("logo")->comment("店铺logo");
-            $table->string("photo")->comment("店铺照片");
-            $table->string("intro")->comment("介绍");
+            $table->string("name", 15)->comment("店铺名称");
+            $table->string("logo")->default("")->comment("店铺logo");
+            $table->string("photo")->default("")->comment("店铺照片");
+            $table->string("intro")->default("")->comment("介绍");
             $table->tinyInteger("type")->comment("类型");
             $table->tinyInteger("status")->comment("状态");
-            $table->timestamp("expire_at")->comment("过期时间");
+            $table->timestamp("expire_at")->default("")->comment("过期时间");
             $table->timestamps();
             $table->softDeletes();
         });

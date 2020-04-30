@@ -16,14 +16,15 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('nickname')->default("");
-            $table->char('phone',11)->unique();
+            $table->char('phone', 11)->unique()->default("");
 
-            $table->string('openid',32)->default("");
-            $table->string('province',20)->default("");
+            $table->string('weapp_openid', 32)->default("");
+            $table->string('province', 20)->default("");
             $table->string('city',20)->nullable();
+
             $table->tinyInteger('gender')->default(0);
             $table->string('avatar_url')->default("");
-
+            $table->integer('parent_id')->default(0);
             $table->integer('store_id')->default(0);
             $table->timestamps();
         });
