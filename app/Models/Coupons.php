@@ -8,5 +8,4 @@ use Overtrue\LaravelLike\Traits\Likeable;
 class Coupons extends Model
 {
     use Likeable;
-    protected $guarded = ['id'];
 }

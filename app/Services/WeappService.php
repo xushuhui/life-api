@@ -13,7 +13,6 @@ class WeappService
     public function getOpenId($code)
     {
         $data = LaravelWeChat::miniProgram()->auth->session($code);
-
         return isset($data['errcode'])? false : $data;
     }
     public function grantToken($wxResult)
@@ -21,7 +20,7 @@ class WeappService
         $user = User::query()->where('weapp_openid',$wxResult['openid'])->first();
         if (!$user) {
             $user = User::query()->create([
-                'openid' => $wxResult['openid']
+                'weapp_openid' => $wxResult['openid']
             ]);
         }
         return Auth::guard('api')->fromUser($user);
