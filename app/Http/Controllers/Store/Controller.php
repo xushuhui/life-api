@@ -9,9 +9,11 @@ class Controller extends BaseController
     use Common;
     protected $guard = 'store';
     protected $method;
+    protected $store_id;
 
     public function __construct()
     {
+        $this->store_id = request()->user($this->guard);
         $this->method = strtoupper(request()->method());
     }
 

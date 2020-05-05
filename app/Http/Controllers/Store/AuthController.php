@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
+use OpenApi\Annotations as OA;
+
+/**
+ * @OA\Info(title="商家模块", version="0.2")
+ */
 class AuthController extends Controller
 {
     /**
