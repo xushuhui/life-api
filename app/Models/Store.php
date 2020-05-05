@@ -13,6 +13,11 @@ class Store extends Authenticatable implements JWTSubject
 
     use Likeable;
 
+    // 店铺类型
+    const STORE_TYPE = [
+        '1' => '美食',
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -56,6 +61,25 @@ class Store extends Authenticatable implements JWTSubject
         $this->invite_id = $this->getIdByInvitecode($data['invite_code']);
         $this->save();
         return $this;
+    }
+
+    /**
+     * 更新商家信息
+     *
+     * @param $store
+     * @param $request
+     *
+     * @return mixed
+     */
+    protected function updateStore($store, $request)
+    {
+        $store->name  = $request->name;
+        $store->logo  = $request->logo;
+        $store->photo = $request->photo;
+        $store->intro = $request->intro;
+        $store->type  = $request->type;
+        $store->save();
+        return $store;
     }
 
     public static function checkMobild(string $store_mobile)

@@ -10,4 +10,7 @@ Route::group(['prefix' => 'stores', 'namespace' => 'Store'], function () {
     Route::any('/login', 'AuthController@login');
     Route::any('/register', 'AuthController@register');
     Route::any('/logout', 'AuthController@logout');
+
+    Route::any('/coupon/publish', 'CouponController@publish');
+    Route::any('/sotre', 'StoreController@update');
 });
