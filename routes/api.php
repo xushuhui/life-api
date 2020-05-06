@@ -48,5 +48,4 @@ Route::get('store/filter', 'StoreController@filter');
 Route::get('store/{id}', 'StoreController@show');
 
 
-// 商家API
-include_once __DIR__ . '/store-api.php';
+
