@@ -10,7 +10,7 @@ class StoreController extends Controller
     /**
      * @OA\Get(
      *     path="/api/stores", summary="首页商家列表",
-     *     @OA\Response(response="200", description="success")
+     *     @OA\Response(response="200", description="{code:0,message:'ok'}"),
      * )
      * @return \Illuminate\Http\JsonResponse
      */
@@ -22,7 +22,7 @@ class StoreController extends Controller
     /**
      * @OA\Get(
      *     path="/api/store/search", summary="搜索商家",
-     *     @OA\Response(response="200", description="success")
+     *     @OA\Response(response="200", description="{code:0,message:'ok'}"),
      * )
      * @param string $name
      * @return \Illuminate\Http\JsonResponse
@@ -36,7 +36,7 @@ class StoreController extends Controller
     /**
      * @OA\Get(
      *     path="/api/store/filter", summary="商家筛选",
-     *     @OA\Response(response="200", description="success")
+     *     @OA\Response(response="200", description="{code:0,message:'ok'}"),
      * )
      * @param int $type
      * @return \Illuminate\Http\JsonResponse
@@ -49,7 +49,7 @@ class StoreController extends Controller
     /**
      * @OA\Get(
      *     path="/api/stores/1", summary="商家详情",
-     *     @OA\Response(response="200", description="success")
+     *     @OA\Response(response="200", description="{code:0,message:'ok'}"),
      * )
      * @return \Illuminate\Http\JsonResponse
      */

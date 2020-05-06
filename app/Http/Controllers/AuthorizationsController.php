@@ -19,8 +19,13 @@ class AuthorizationsController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/api/authorizations", summary="小程序",
-     *     @OA\Response(response="200", description="success")
+     *     path="/api/authorizations", summary="小程序授权登录",
+     *     @OA\Response(response="200", description="{code:0,message:'ok'}"),
+     *     @OA\RequestBody(@OA\MediaType(mediaType="application/json",
+     *             @OA\Schema(
+     *                  @OA\Property(property="code", type="string", description="小程序登录code）"),
+     *             ))
+     *      )
      * )
      * @param WeappAuthorizationRequest $request
      * @return \Illuminate\Http\JsonResponse

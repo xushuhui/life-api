@@ -13,11 +13,11 @@ class UserController extends Controller
 {
     /**
      * @OA\Put(path="/api/user", summary="修改用户资料",
-     *     @OA\Response(response="200", description="{code:0}"),
+     *     @OA\Response(response="200", description="{code:0,message:'ok'}"),
      *     @OA\RequestBody(@OA\MediaType(mediaType="application/json",
      *             @OA\Schema(
-     *                 @OA\Property(property="nickname",type="string"),
-     *                 @OA\Property(property="phone",type="string"),
+     *                 @OA\Property(property="nickname",type="string", description="昵称"),
+     *                 @OA\Property(property="phone",type="string", description="手机号"),
      *                 example={"nickname": "Jessica Smith", "phone": "13012341234"}
      *             ))
      *      )
@@ -36,7 +36,8 @@ class UserController extends Controller
 
     /**
      * @OA\Get(path="/api/user", summary="查询用户资料",
-     * @OA\Response(response="200", description="success"))
+     *     @OA\Response(response="200", description="{code:0,message:'ok'}"),
+     *     )
      * @return \Illuminate\Http\JsonResponse
      */
     public function show()
@@ -47,7 +48,7 @@ class UserController extends Controller
     /**
      * @OA\Get(
      *     path="/api/user/invites", summary="用户邀请列表",
-     *     @OA\Response(response="200", description="success")
+     *     @OA\Response(response="200", description="{code:0,message:'ok'}"),
      * )
      * @return \Illuminate\Http\JsonResponse
      */

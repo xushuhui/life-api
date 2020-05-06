@@ -5,14 +5,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Coupons;
 use App\Models\Store;
-use App\Models\User;
 
 class LikeController extends Controller
 {
     /**
      * @OA\Get(
      *     path="/api/like/stores", summary="收藏商家列表",
-     *     @OA\Response(response="200", description="success")
+     *     @OA\Response(response="200", description="{code:0,message:'ok'}"),
      * )
      * @return \Illuminate\Http\JsonResponse
      */
@@ -24,7 +23,7 @@ class LikeController extends Controller
     /**
      * @OA\Post(
      *     path="/api/like/store/{id}", summary="收藏商家",
-     *     @OA\Response(response="200", description="success")
+     *     @OA\Response(response="200", description="{code:0,message:'ok'}"),
      * )
      * @return \Illuminate\Http\JsonResponse
      */
@@ -37,7 +36,7 @@ class LikeController extends Controller
     /**
      * @OA\Post(
      *     path="/api/like/coupon/{id}", summary="收藏优惠券",
-     *     @OA\Response(response="200", description="success")
+     *     @OA\Response(response="200", description="{code:0,message:'ok'}"),
      * )
      * @return \Illuminate\Http\JsonResponse
      */
@@ -50,7 +49,7 @@ class LikeController extends Controller
     /**
      * @OA\Get(
      *     path="/api/like/coupons", summary="收藏优惠券列表",
-     *     @OA\Response(response="200", description="success")
+     *     @OA\Response(response="200", description="{code:0,message:'ok'}"),
      * )
      * @return \Illuminate\Http\JsonResponse
      */

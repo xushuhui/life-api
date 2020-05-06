@@ -15,7 +15,7 @@ class AuthController extends Controller
 {
     /**
      * @OA\Post(path="/api/stores/getCode", summary="获取验证码",
-     *     @OA\Response(response="200", description="{status:1（1.成功，0.失败）,msg:'提示语'}"),
+     *     @OA\Response(response="200", description="{code:0,message:'ok'}"),
      *     @OA\RequestBody(@OA\MediaType(mediaType="application/json",
      *             @OA\Schema(
      *                  @OA\Property(property="store_mobile", type="string", description="手机号"),

@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 class CouponController extends Controller
 {
     /**
      * @OA\Get(
      *     path="/api/coupon/status/{status}", summary="用户优惠券列表",
-     *     @OA\Response(response="200", description="success")
+     *     @OA\Response(response="200", description="{code:0,message:'ok'}"),
      * )
      * @return \Illuminate\Http\JsonResponse
      */
@@ -20,7 +18,7 @@ class CouponController extends Controller
     /**
      * @OA\Get(
      *     path="/api/coupon/store/{store_id}", summary="商家详情",
-     *     @OA\Response(response="200", description="success")
+     *     @OA\Response(response="200", description="{code:0,message:'ok'}"),
      * )
      * @return \Illuminate\Http\JsonResponse
      */
@@ -31,7 +29,7 @@ class CouponController extends Controller
     /**
      * @OA\Get(
      *     path="/api/coupon/stores", summary="商家列表",
-     *     @OA\Response(response="200", description="success")
+     *     @OA\Response(response="200", description="{code:0,message:'ok'}"),
      * )
      * @return \Illuminate\Http\JsonResponse
      */
@@ -42,7 +40,7 @@ class CouponController extends Controller
     /**
      * @OA\Get(
      *     path="/api/coupon/used/{coupon_id}", summary="已使用优惠券性情",
-     *     @OA\Response(response="200", description="success")
+     *     @OA\Response(response="200", description="{code:0,message:'ok'}"),
      * )
      * @return \Illuminate\Http\JsonResponse
      */
