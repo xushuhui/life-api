@@ -4,6 +4,11 @@ namespace Modules\Store\Entities;
 
 class Coupon extends Common
 {
+    public function store()
+    {
+        return $this->hasOne(Store::class, 'id', 'store_id');
+    }
+
     protected function publish($data)
     {
         $this->store_id        = $data['store_id'];

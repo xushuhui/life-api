@@ -75,6 +75,7 @@ class Store extends Authenticatable implements JWTSubject
         $store->photo = $request->photo;
         $store->intro = $request->intro;
         $store->type  = $request->type;
+        $store->store_address  = $request->store_address;
         $store->save();
         return $store;
     }

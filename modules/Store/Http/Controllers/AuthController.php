@@ -26,7 +26,8 @@ class AuthController extends Controller
 
     /**
      * @OA\Post(path="/store/getCode", summary="获取验证码",
-     *     @OA\Response(response="200", description="{code:0,message:'ok'}"),
+     *     tags={"store"},
+     *     @OA\Response(response="200", description="{code:0（0.成功，1.失败）,message:'ok'}"),
      *     @OA\RequestBody(@OA\MediaType(mediaType="application/json",
      *             @OA\Schema(
      *                  @OA\Property(property="store_mobile", type="string", description="手机号"),
@@ -55,7 +56,8 @@ class AuthController extends Controller
 
     /**
      * @OA\Post(path="/store/login", summary="商家登录",
-     *     @OA\Response(response="200", description="{status:1（1.成功，0.失败）,msg:提示语}"),
+     *     tags={"store"},
+     *     @OA\Response(response="200", description="{code:0（0.成功，1.失败）,message:提示语}"),
      *     @OA\RequestBody(@OA\MediaType(mediaType="application/json",
      *             @OA\Schema(
      *                  @OA\Property(property="shop_no", type="string", description="店铺号（SP+手机号）"),
@@ -94,7 +96,8 @@ class AuthController extends Controller
 
     /**
      * @OA\Put(path="/store/register", summary="商家注册",
-     *     @OA\Response(response="200", description="{status:1（1.成功，0.失败）,msg:'提示语'}"),
+     *     tags={"store"},
+     *     @OA\Response(response="200", description="{code:0（0.成功，1.失败）,message:'提示语'}"),
      *     @OA\RequestBody(@OA\MediaType(mediaType="application/json",
      *             @OA\Schema(
      *                 @OA\Property(property="store_mobile", type="string", description="手机号"),
@@ -146,11 +149,7 @@ class AuthController extends Controller
 
     }
 
-    /**
-     * Log the user out (Invalidate the token).
-     *
-     * @return JsonResponse
-     */
+
     public function logout()
     {
         auth($this->guard)->logout();

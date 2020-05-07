@@ -10,9 +10,6 @@ use Modules\Store\Code;
 
 use OpenApi\Annotations as OA;
 
-/**
- * @OA\Info(title="商家模块", version="0.1")
- */
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;

@@ -14,7 +14,8 @@ class StoreController extends Controller
 
     /**
      * @OA\Put(path="/store/update", summary="修改商家资料",
-     *     @OA\Response(response="200", description="{code:0}"),
+     *     tags={"store"},
+     *     @OA\Response(response="200", description="{code:0（0.成功，1.失败）}"),
      *     @OA\RequestBody(@OA\MediaType(mediaType="application/json",
      *             @OA\Schema(
      *                  @OA\Property(property="name", type="string", description="店铺名称"),
