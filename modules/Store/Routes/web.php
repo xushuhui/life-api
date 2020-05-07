@@ -11,6 +11,18 @@
 |
 */
 
+
+use Illuminate\Support\Facades\Route;
+
 Route::prefix('store')->group(function() {
-    Route::get('/', 'StoreController@index');
+    Route::post('/getCode', 'AuthController@getCode');
+    Route::post('/login', 'AuthController@login');
+    Route::post('/register', 'AuthController@register');
+    Route::post('/logout', 'AuthController@logout');
+
+    // 发布优惠券
+    Route::put('/coupon/publish', 'CouponController@publish');
+    Route::get('/coupon/{id}', 'CouponController@share');
+    // 更新商家信息
+    Route::put('/store', 'StoreController@update');
 });

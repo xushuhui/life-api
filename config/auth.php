@@ -78,7 +78,7 @@ return [
 
         'stores' => [
             'driver' => 'eloquent',
-            'model'  => \App\Models\Store::class,
+            'model'  => \Modules\Store\Entities\Store::class,
         ],
 
         // 'users' => [

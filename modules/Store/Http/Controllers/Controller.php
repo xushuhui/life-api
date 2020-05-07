@@ -6,13 +6,41 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Modules\Store\Code;
 
+use OpenApi\Annotations as OA;
+
+/**
+ * @OA\Info(title="商家模块", version="0.1")
+ */
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     protected $data = [];
     protected $code = 0;
     protected $message = 'OK';
+
+    protected $guard = 'store';
+    protected $method;
+    protected $store_id;
+
+
+    public function __construct()
+    {
+        $this->store_id = request()->user($this->guard);
+        $this->method = strtoupper(request()->method());
+    }
+
+    protected function checkPost()
+    {
+        return true;
+        return $this->checkMethod('POST');
+    }
+
+    private function checkMethod(string $method)
+    {
+        return strtoupper($method) == strtoupper($this->method) ? true : false;
+    }
 
     public function succeed()
     {
@@ -25,11 +53,16 @@ class Controller extends BaseController
 
     }
 
+    public function setMessage($code)
+    {
+        $this->message = Code::$table[$code];
+    }
+
     public function setCode($code)
     {
         $this->code = $code;
         //TODO message
-        //$this->message = CodeTable::$table[$code];
+        $this->message = Code::$table[$code];
         return $this->toJson();
     }
 

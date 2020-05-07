@@ -1,16 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Store;
+namespace Modules\Store\Http\Controllers;
 
-use App\Http\Requests\Store\CouponRequest;
-use App\Models\Coupons;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use Modules\Store\Entities\Coupon;
+use Modules\Store\Http\Requests\CouponRequest;
 
 class CouponController extends Controller
 {
     /**
-     * @OA\Put(path="/api/stores/coupon/publish", summary="商家生成优惠券",
+     * @OA\Put(path="/store/coupon/publish", summary="商家生成优惠券",
      *     @OA\Response(response="200", description="{status:1（1.成功，0.失败）,msg:'提示语'}"),
      *     @OA\RequestBody(@OA\MediaType(mediaType="application/json",
      *             @OA\Schema(
@@ -29,23 +27,26 @@ class CouponController extends Controller
      *      )
      * )
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \Modules\Store\Http\Requests\CouponRequest $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function publish(Request $request)
+    public function publish(CouponRequest $request)
     {
         $request_data = $request->all();
         $request_data['store_id'] = $this->store_id;
 
-        $coupon_request = new CouponRequest;
-        $validator = Validator::make($request_data, $coupon_request->rules(), $coupon_request->messages());
-        if ($validator->fails()) return self::ajaxReturn(['msg' => $validator->errors()->first()]);
-
-        if (Coupons::publish($request_data)){
-            return self::ajaxReturn(['status' => 1, 'msg' => trans('common.make-success')]);
+        if (Coupon::publish($request_data)){
+            $this->setMessage(20101);
+            return $this->succeed();
         }else{
-            return self::ajaxReturn(['status' => 0, 'msg' => trans('common.make-error')]);
+            return $this->fail(20101);
         }
+    }
+
+    public function share(int $id)
+    {
+        $data = Coupon::query()->find($id);
+        return $this->setData($data);
     }
 }
