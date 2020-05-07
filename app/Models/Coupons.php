@@ -9,30 +9,28 @@ class Coupons extends Model
 {
     use Likeable;
 
-    protected $primaryKey = 'coupon_id';
 
     protected function publish($data)
     {
-        $this->store_id = $data['store_id'];
-        $this->coupon_name = $data['coupon_name'];
-        $this->coupon_code = $this->makeUniqueCouponCode();
-        $this->coupon_type = $data['coupon_type'];
-        $this->end_time = $data['end_time'];
-        $this->total_num = $data['total_num'];
-        $this->user_num = $data['user_num'] ?? 0;
-        $this->is_rec = $data['is_rec'] ?? 0;
-        $this->coupon_explain = $data['coupon_explain'];
-        $this->use_notice = $data['use_notice'];
-        $this->careful_matter = $data['careful_matter'];
+        $this->store_id        = $data['store_id'];
+        $this->coupon_name     = $data['coupon_name'];
+        $this->coupon_code     = $this->makeUniqueCouponCode();
+        $this->coupon_type     = $data['coupon_type'];
+        $this->end_time        = $data['end_time'];
+        $this->total_num       = $data['total_num'];
+        $this->user_num        = $data['user_num'] ?? 0;
+        $this->is_rec          = $data['is_rec'] ?? 0;
+        $this->coupon_explain  = $data['coupon_explain'];
+        $this->use_notice      = $data['use_notice'];
+        $this->careful_matter  = $data['careful_matter'];
         $this->recharge_amount = $data['recharge_amount'] ?? 0;
-        $this->give_amount = $data['give_amount'] ?? 0;
+        $this->give_amount     = $data['give_amount'] ?? 0;
         $this->save();
 
         // 是否推荐，点击了推荐，数据将被推送到小程序遇圈页；默认为1次推荐，最新推荐将覆盖最老的推荐。
         // 同类型的其他的数据取消推荐
-        if ($this->is_rec == 1)
-        {
-            $this->where('coupon_type', $this->coupon_type)->where($this->primaryKey, '<>', $this->coupon_id)->update(['is_rec' => 0]);
+        if ($this->is_rec == 1) {
+            $this->where('coupon_type', $this->coupon_type)->where('id', '<>', $this->coupon_id)->update(['is_rec' => 0]);
         }
 
         return $this;
@@ -46,7 +44,10 @@ class Coupons extends Model
     private function makeUniqueCouponCode()
     {
         $coupon_code = make_blend_code(12);
-        if (empty($this->where('coupon_code', $coupon_code)->count())) return $coupon_code;
-        else $this->makeUniqueCouponCode();
+        if (empty($this->where('coupon_code', $coupon_code)->count())) {
+            return $coupon_code;
+        } else {
+            return $this->makeUniqueCouponCode();
+        }
     }
 }

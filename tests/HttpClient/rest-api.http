@@ -16,16 +16,22 @@ Accept: application/json
 Content-Type: application/json
 Authorization: {{token}}
 
+###
+POST {{host}}/api/authorizations
+Accept: */*
+Cache-Control: no-cache
+Accept: application/json
+Content-Type: application/json
+
+{"code":"xxx"}
 
 ###
-GET http://life.test/api/like/stores
+GET {{host}}/api/like/stores
 Accept: */*
 Cache-Control: no-cache
 Accept: application/json
 Content-Type: application/json
 Authorization: {{token}}
-
-
 
 ###
 
