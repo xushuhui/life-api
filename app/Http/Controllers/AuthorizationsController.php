@@ -20,10 +20,17 @@ class AuthorizationsController extends Controller
     /**
      * @OA\Post(
      *     path="/api/authorizations", summary="小程序授权登录",
-     *     @OA\Response(response="200", description="{code:0,message:'ok'}"),
+     *     @OA\Response(response="200", description="{'code':0,'message':'OK','data':{'access_token':'eyEA','token_type':'Bearer','expires_in':51840}}"),
      *     @OA\RequestBody(@OA\MediaType(mediaType="application/json",
      *             @OA\Schema(
      *                  @OA\Property(property="code", type="string", description="小程序登录code）"),
+     *                  @OA\Property(property="nickname", type="string", description="昵称）"),
+     *                  @OA\Property(property="province", type="string", description="省）"),
+     *                  @OA\Property(property="city", type="string", description="城市）"),
+     *                  @OA\Property(property="gender", type="int", description="性别）"),
+     *                  @OA\Property(property="avatar_url", type="int", description="头像）"),
+
+     *
      *             ))
      *      )
      * )
@@ -32,12 +39,12 @@ class AuthorizationsController extends Controller
      */
     public function store(WeappAuthorizationRequest $request)
     {
-        $code     = $request->input('code');
-        $wxResult = $this->weappService->getOpenId($code);
+        $input     = $request->input();
+        $wxResult = $this->weappService->getOpenId($input['code']);
         if (!$wxResult) {
             return $this->fail(10001);
         }
-        $token = $this->weappService->grantToken($wxResult);
+        $token = $this->weappService->grantToken($wxResult,$input);
         return $this->respondWithToken($token);
     }
 

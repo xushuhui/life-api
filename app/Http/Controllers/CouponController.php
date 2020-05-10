@@ -9,6 +9,28 @@ class CouponController extends Controller
 {
     /**
      * @OA\Get(
+     *     path="/api/coupon/recommend", summary="首页推荐优惠券",
+     *     @OA\Response(response="200", description="{code:0,message:'ok'}"),
+     * )
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function recommend()
+    {
+        return $this->setData();
+    }
+    /**
+     * @OA\Get(
+     *     path="/api/coupon/latest", summary="首页最新优惠券",
+     *     @OA\Response(response="200", description="{code:0,message:'ok'}"),
+     * )
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function latest()
+    {
+        return $this->setData();
+    }
+    /**
+     * @OA\Get(
      *     path="/api/coupon/status/{status}", summary="用户优惠券列表",
      *     @OA\Response(response="200", description="{code:0,message:'ok'}"),
      * )
@@ -20,7 +42,7 @@ class CouponController extends Controller
         $list   = UserCoupons::query()->where('user_id', $userId)->where('status', $status)->get();
         return $this->setData($list);
     }
-    
+
     /**
      * @OA\Get(
      *     path="/api/coupon/store/{store_id}", summary="商家详情",
@@ -33,7 +55,7 @@ class CouponController extends Controller
         $store = Store::query()->where('id', $store_id)->first();
         return $this->setData($store);
     }
-    
+
     /**
      * @OA\Get(
      *     path="/api/coupon/stores", summary="商家列表",
@@ -45,7 +67,7 @@ class CouponController extends Controller
     {
         return $this->setData();
     }
-    
+
     /**
      * @OA\Get(
      *     path="/api/coupon/used/{coupon_id}", summary="已使用优惠券性情",

@@ -15,7 +15,13 @@ class WeappAuthorizationRequest extends Request
     public function rules()
     {
         return [
-            'code' => 'required|string'
+            'code' => 'required|string',
+            'nickname' => 'required|string',
+            'province' => 'required|string',
+            'city' => 'required|string',
+            'gender' => 'required|int',
+            'avatar_url' => 'required|string'
+
         ];
     }
 }
