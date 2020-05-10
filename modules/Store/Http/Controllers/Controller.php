@@ -24,7 +24,9 @@ class Controller extends BaseController
 
     public function __construct()
     {
-        $this->store_id = request()->user($this->guard);
+        request()->offsetSet('token', request()->header('store-token'));//auth认证
+
+        $this->store_id = request()->user($this->guard)->id ?? 0;
         $this->method = strtoupper(request()->method());
     }
 
@@ -59,7 +61,7 @@ class Controller extends BaseController
     {
         $this->code = $code;
         //TODO message
-        $this->message = Code::$table[$code];
+        $this->message = $this->message == 'OK' ? Code::$table[$code] : $this->message;
         return $this->toJson();
     }
 

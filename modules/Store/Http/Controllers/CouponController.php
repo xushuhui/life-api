@@ -79,7 +79,11 @@ class CouponController extends Controller
      *      }
      *     },
      *     @OA\Response(response="200", description="{code:0（0.成功，1.失败）,message:'提示语'}"),
-     *     @OA\RequestBody(@OA\MediaType(mediaType="application/json")
+     *     @OA\RequestBody(
+     *          @OA\MediaType(mediaType="application/json",
+     *              @OA\Schema(
+     *                  @OA\Property(property="store-token", type="string", description="商家Token"),
+     *             ))
      *      )
      * )
      *
@@ -101,7 +105,7 @@ class CouponController extends Controller
     }
 
     /**
-     * @OA\Get(path="/store/1",
+     * @OA\Get(path="/store/{id}",
      *   tags={"store"},
      *   summary="优惠券分享",
      *   description="优惠券分享",
@@ -109,17 +113,13 @@ class CouponController extends Controller
      *   @OA\Response(
      *     response=200,
      *     description="code:0（0.成功，1.失败）,message:'提示语'}",
-     *     @OA\Schema(
-     *      @OA\Property(property="id", type="int", description="优惠券Id"),
-     *       additionalProperties={
-     *         "type":"integer",
-     *         "format":"int32"
-     *       }
-     *     )
      *   ),
-     *   security={{
-     *     "api_key":{}
-     *   }}
+     *     @OA\RequestBody(
+     *          @OA\MediaType(mediaType="application/json",
+     *              @OA\Schema(
+     *                  @OA\Property(property="store-token", type="string", description="商家Token"),
+     *             ))
+     *      )
      * )
      */
     public function share(int $id)

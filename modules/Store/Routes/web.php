@@ -25,4 +25,12 @@ Route::prefix('store')->group(function() {
     Route::get('/coupon/{id}', 'CouponController@share');
     // 更新商家信息
     Route::put('/store', 'StoreController@update');
+
+    /**
+     * 商品管理
+     */
+    Route::get('/good', 'GoodController@index');
+    Route::get('/good/{id}', 'GoodController@detail');
+    Route::put('/good', 'GoodController@update');
+    Route::delete('/good/{id}', 'GoodController@delete');
 });

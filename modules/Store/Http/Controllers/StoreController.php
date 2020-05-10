@@ -18,6 +18,7 @@ class StoreController extends Controller
      *     @OA\Response(response="200", description="{code:0（0.成功，1.失败）}"),
      *     @OA\RequestBody(@OA\MediaType(mediaType="application/json",
      *             @OA\Schema(
+     *                  @OA\Property(property="store-token", type="string", description="商家Token"),
      *                  @OA\Property(property="name", type="string", description="店铺名称"),
      *                  @OA\Property(property="logo", type="string", description="店铺Logo"),
      *                  @OA\Property(property="photo", type="string", description="店铺门头照"),

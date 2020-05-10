@@ -27,12 +27,16 @@ class AuthController extends Controller
     /**
      * @OA\Post(path="/store/getCode", summary="获取验证码",
      *     tags={"store"},
+     *     parameters={
+     *      {
+     *          "name" : "store_mobile",
+     *          "in" : "string",
+     *          "description" : "手机号",
+     *          "required" : true
+     *      },
+     *     },
      *     @OA\Response(response="200", description="{code:0（0.成功，1.失败）,message:'ok'}"),
-     *     @OA\RequestBody(@OA\MediaType(mediaType="application/json",
-     *             @OA\Schema(
-     *                  @OA\Property(property="store_mobile", type="string", description="手机号"),
-     *             ))
-     *      )
+     *     @OA\RequestBody(@OA\MediaType(mediaType="application/json"))
      * )
      *
      * @param \Illuminate\Http\Request $request
@@ -57,13 +61,28 @@ class AuthController extends Controller
     /**
      * @OA\Post(path="/store/login", summary="商家登录",
      *     tags={"store"},
+     *     parameters={
+     *      {
+     *          "name" : "shop_no",
+     *          "in" : "string",
+     *          "description" : "店铺号（SP+手机号）",
+     *          "required" : true
+     *      },
+     *     {
+     *          "name" : "store_mobile",
+     *          "in" : "string",
+     *          "description" : "手机号",
+     *          "required" : true
+     *      },
+     *     {
+     *          "name" : "password",
+     *          "in" : "string",
+     *          "description" : "登录密码",
+     *          "required" : true
+     *      },
+     *     },
      *     @OA\Response(response="200", description="{code:0（0.成功，1.失败）,message:提示语}"),
-     *     @OA\RequestBody(@OA\MediaType(mediaType="application/json",
-     *             @OA\Schema(
-     *                  @OA\Property(property="shop_no", type="string", description="店铺号（SP+手机号）"),
-     *                  @OA\Property(property="store_mobile", type="string", description="手机号"),
-     *                  @OA\Property(property="password", type="string", description="登录密码"),
-     *             ))
+     *     @OA\RequestBody(@OA\MediaType(mediaType="application/json")
      *      )
      * )
      *
@@ -90,22 +109,47 @@ class AuthController extends Controller
 
             $data = $this->respondWithToken($token)->{'original'};
 
-            return $this->setData($data);
+            return $data;
         }
     }
 
     /**
      * @OA\Put(path="/store/register", summary="商家注册",
      *     tags={"store"},
+     *     parameters={
+     *     {
+     *          "name" : "store_mobile",
+     *          "in" : "string",
+     *          "description" : "手机号",
+     *          "required" : true
+     *      },
+     *     {
+     *          "name" : "password",
+     *          "in" : "string",
+     *          "description" : "登录密码",
+     *          "required" : true
+     *      },
+     *     {
+     *          "name" : "password_confirmation",
+     *          "in" : "string",
+     *          "description" : "确认密码",
+     *          "required" : true
+     *      },
+     *     {
+     *          "name" : "invite_code",
+     *          "in" : "string",
+     *          "description" : "邀请码",
+     *          "required" : true
+     *      },
+     *     {
+     *          "name" : "sms_code",
+     *          "in" : "string",
+     *          "description" : "验证码",
+     *          "required" : true
+     *      },
+     *     },
      *     @OA\Response(response="200", description="{code:0（0.成功，1.失败）,message:'提示语'}"),
-     *     @OA\RequestBody(@OA\MediaType(mediaType="application/json",
-     *             @OA\Schema(
-     *                 @OA\Property(property="store_mobile", type="string", description="手机号"),
-     *                 @OA\Property(property="password", type="string", description="登录密码"),
-     *                 @OA\Property(property="password_confirmation", type="string", description="确认密码"),
-     *                 @OA\Property(property="invite_code", type="string", description="邀请码"),
-     *                 @OA\Property(property="sms_code", type="string", description="验证码"),
-     *             ))
+     *     @OA\RequestBody(@OA\MediaType(mediaType="application/json")
      *      )
      * )
      *
@@ -150,6 +194,26 @@ class AuthController extends Controller
     }
 
 
+    /**
+     * @OA\Get(path="/store/logout",
+     *   tags={"store"},
+     *   summary="退出登录",
+     *   description="退出登录",
+     *   parameters={},
+     *   @OA\Response(
+     *     response=200,
+     *     description="code:0（0.成功，1.失败）,message:'提示语'}",
+     *   ),
+     *     @OA\RequestBody(
+     *          @OA\MediaType(mediaType="application/json",
+     *              @OA\Schema(
+     *                  @OA\Property(property="store-token", type="string", description="商家Token"),
+     *             ))
+     *      )
+     * )
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function logout()
     {
         auth($this->guard)->logout();
@@ -179,7 +243,7 @@ class AuthController extends Controller
     {
         return $this->setData([
             'access_token' => $token,
-            'token_type' => $this->guard,
+            'token_type' => 'store-token',
             'expires_in'   => auth($this->guard)->factory()->getTTL() * 60
         ]);
     }
