@@ -8,6 +8,45 @@ use App\Http\Requests\WeappAuthorizationRequest;
 use App\Services\WeappService;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * @OA\Get(
+ *     path="/", summary="分页说明",
+ *     @OA\Response(response="200", description="{
+code: 0,
+message: OK,
+data: {
+data: [
+],
+current_page: 1,
+first_page_url: /recommend?page=1,
+from: 1,
+last_page: 1,
+last_page_url: /recommend?page=1,
+next_page_url: null,
+path: /recommend,
+per_page: 10,
+prev_page_url: null,
+to: 1,
+total: 1
+}
+}"),
+ *     @OA\RequestBody(@OA\MediaType(mediaType="application/json",
+ *             @OA\Schema(
+ *      @OA\Property(property="data", type="arr", description="分页数据"),
+ *      @OA\Property(property="per_page", type="integer", description="每页显示数量"),
+ *      @OA\Property(property="current_page", type="integer", description="当前页码"),
+ *      @OA\Property(property="last_page", type="integer", description="最后页码"),
+ *      @OA\Property(property="first_page_url", type="string", description="第一页地址"),
+ *      @OA\Property(property="last_page_url", type="string", description="最后一页地址"),
+ *      @OA\Property(property="next_page_url", type="string", description="下一页"),
+ *      @OA\Property(property="prev_page_url", type="string", description="上一页"),
+ *      @OA\Property(property="from", type="integer", description="开始"),
+ *      @OA\Property(property="to", type="integer", description="结束"),
+ *             ))
+ *      )
+ * )
+)*
+ */
 class AuthorizationsController extends Controller
 {
     private $weappService;
@@ -27,9 +66,8 @@ class AuthorizationsController extends Controller
      *                  @OA\Property(property="nickname", type="string", description="昵称）"),
      *                  @OA\Property(property="province", type="string", description="省）"),
      *                  @OA\Property(property="city", type="string", description="城市）"),
-     *                  @OA\Property(property="gender", type="int", description="性别）"),
-     *                  @OA\Property(property="avatar_url", type="int", description="头像）"),
-
+     *                  @OA\Property(property="gender", type="integer", description="性别）"),
+     *                  @OA\Property(property="avatar_url", type="integer", description="头像）"),
      *
      *             ))
      *      )

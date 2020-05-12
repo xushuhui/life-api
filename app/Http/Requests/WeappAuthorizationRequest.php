@@ -16,12 +16,11 @@ class WeappAuthorizationRequest extends Request
     {
         return [
             'code' => 'required|string',
-            'nickname' => 'required|string',
-            'province' => 'required|string',
-            'city' => 'required|string',
-            'gender' => 'required|int',
-            'avatar_url' => 'required|string'
-
+//            'nickname' => 'required|string',
+//            'province' => 'required|string',
+//            'city' => 'required|string',
+//            'gender' => 'required|int',
+//            'avatar_url' => 'required|string'
         ];
     }
 }
