@@ -13,8 +13,8 @@ use OpenApi\Annotations as OA;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-    protected $data = [];
-    protected $code = 0;
+    protected $data    = [];
+    protected $code    = 0;
     protected $message = 'OK';
 
     protected $guard = 'store';
@@ -27,7 +27,7 @@ class Controller extends BaseController
         request()->offsetSet('token', request()->header('store-token'));//auth认证
 
         $this->store_id = request()->user($this->guard)->id ?? 0;
-        $this->method = strtoupper(request()->method());
+        $this->method   = strtoupper(request()->method());
     }
 
     protected function checkPost()

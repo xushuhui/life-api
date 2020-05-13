@@ -34,8 +34,8 @@ class StoreController extends Controller
      */
     public function update(StoreRequest $request)
     {
-        $store        = $request->user($this->guard);
-        Store::updateStore($store, $request);
+        $store_user = $request->user($this->guard);
+        Store::updateStore($store_user, $request);
 
         $this->setMessage(20008);
         return $this->succeed();

@@ -69,3 +69,22 @@ function make_blend_code($length = 20): string
     }
     return $rand;
 }
+
+/**
+ * 字符串是否是数字与字母组合
+ *
+ * @param $pwd
+ *
+ * @return bool
+ */
+function check_number_and_str($pwd)
+{
+    // 数字
+    if (preg_match("/^\d*$/", $pwd)) return false;
+    // 字母
+    if(preg_match("/^[a-z]*$/i",$pwd)) return false;
+    // 组合
+    if(preg_match("/^[a-z\d]*$/i",$pwd)) return true;
+
+    return false;
+}

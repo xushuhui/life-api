@@ -2,7 +2,7 @@
 
 namespace Modules\Store\Http\Requests;
 
-class LoginRequest extends Request
+class StaffRequest extends Request
 {
     /**
      * Get the validation rules that apply to the request.
@@ -12,8 +12,9 @@ class LoginRequest extends Request
     public function rules()
     {
         return [
-            'phone' => [
+            'phone'          => [
                 'required',
+                'max:11',
                 function($attribute, $value, $fail){
                     if (!check_mobile($value)){
                         $fail('手机号格式错误!');
@@ -21,15 +22,26 @@ class LoginRequest extends Request
                     }
                 }
             ],
-            'password'   => 'required',
+            'name'           => 'required|max:5',
+            'password'   => [
+                'required',
+                'confirmed',
+                'min:8',
+                'max:16',
+                function($attribute, $value, $fail){
+                    if (!check_number_and_str($value)){
+                        $fail('请输入数字字母组合密码!');
+                        return;
+                    }
+                }
+            ],
         ];
     }
 
     public function messages()
     {
         return [
-            'phone.required' => '手机号为必填项！',
-            'password.required'   => '密码为必填项！',
+
         ];
     }
 }

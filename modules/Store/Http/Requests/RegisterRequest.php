@@ -12,7 +12,7 @@ class RegisterRequest extends Request
     public function rules()
     {
         return [
-            'store_mobile' => [
+            'phone' => [
                 'required',
                 function($attribute, $value, $fail){
                     if (!check_mobile($value)){
@@ -22,14 +22,14 @@ class RegisterRequest extends Request
                 }
             ],
             'password'   => 'required|confirmed',
-            'invite_code'   => 'required|exists:App\Models\Store,invite_code',
+            'invite_code'   => 'required|exists:Modules\Store\Entities\StoreUser,invite_code',
         ];
     }
 
     public function messages()
     {
         return [
-            'store_mobile.required' => '手机号为必填项！',
+            'phone.required' => '手机号为必填项！',
             'password.required'   => '密码为必填项！',
             'password.confirmed'   => '两次密码不一致！',
             'invite_code.required'   => '邀请码为必填项！',

@@ -33,4 +33,12 @@ Route::prefix('store')->group(function() {
     Route::get('/good/{id}', 'GoodController@detail');
     Route::put('/good', 'GoodController@update');
     Route::delete('/good/{id}', 'GoodController@delete');
+
+    /**
+     * 员工管理
+     */
+    Route::get('/staff', 'StaffController@index');
+    Route::get('/staff/{id}', 'StaffController@detail');
+    Route::put('/staff', 'StaffController@update');
+    Route::delete('/staff/{id}', 'StaffController@delete');
 });

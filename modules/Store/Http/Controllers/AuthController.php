@@ -6,7 +6,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
-use Modules\Store\Entities\Store;
+use Modules\Store\Entities\StoreUser;
 use Modules\Store\Http\Requests\LoginRequest;
 use Modules\Store\Http\Requests\RegisterRequest;
 
@@ -21,7 +21,7 @@ class AuthController extends Controller
     public function __construct()
     {
         parent::__construct();
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        // $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
 
     /**
@@ -29,7 +29,7 @@ class AuthController extends Controller
      *     tags={"store"},
      *     parameters={
      *      {
-     *          "name" : "store_mobile",
+     *          "name" : "phone",
      *          "in" : "string",
      *          "description" : "手机号",
      *          "required" : true
@@ -45,11 +45,11 @@ class AuthController extends Controller
      */
     public function getCode(Request $request)
     {
-        $store_mobile = $request->input('store_mobile', '');
-        if (!check_mobile($store_mobile)){
+        $phone = $request->input('phone', '');
+        if (!check_mobile($phone)) {
             return $this->fail(20001);
         }
-        if (!Store::checkMobild($store_mobile)){
+        if (!StoreUser::checkMobild($phone)) {
             return $this->fail(20002);
         }
         $sms_code = 123456;
@@ -69,7 +69,7 @@ class AuthController extends Controller
      *          "required" : true
      *      },
      *     {
-     *          "name" : "store_mobile",
+     *          "name" : "phone",
      *          "in" : "string",
      *          "description" : "手机号",
      *          "required" : true
@@ -92,14 +92,13 @@ class AuthController extends Controller
      */
     public function login(LoginRequest $request)
     {
-        if ($this->checkPost())
-        {
+        if ($this->checkPost()) {
             // shop_no 后期再完善
-            $request_data = $request->only(['store_mobile', 'password']);
-            $request_data['store_mobile'] = $request->input('store_mobile', '');
+            $request_data             = $request->only(['phone', 'password']);
+            $request_data['phone']    = $request->input('phone', '');
             $request_data['password'] = $request->input('password', '');
 
-            if (!Store::checkMobild($request_data['store_mobile'])){
+            if (!StoreUser::checkMobild($request_data['phone'])) {
                 return $this->fail(20002);
             }
 
@@ -118,7 +117,7 @@ class AuthController extends Controller
      *     tags={"store"},
      *     parameters={
      *     {
-     *          "name" : "store_mobile",
+     *          "name" : "phone",
      *          "in" : "string",
      *          "description" : "手机号",
      *          "required" : true
@@ -159,20 +158,19 @@ class AuthController extends Controller
      */
     public function register(RegisterRequest $request)
     {
-        if ($this->checkPost())
-        {
-            $request_data = $request->all();
-            $request_data['store_mobile'] = $request->input('store_mobile', '');
+        if ($this->checkPost()) {
+            $request_data             = $request->all();
+            $request_data['phone']    = $request->input('phone', '');
             $request_data['password'] = $request->input('password', '');
 
-            if (Store::checkMobild($request_data['store_mobile'])){
+            if (StoreUser::checkMobild($request_data['phone'])) {
                 return $this->fail(20004);
             }
 
-            if (Store::register($request_data)){
+            if (StoreUser::register($request_data)) {
                 $this->setMessage(20006);
                 return $this->succeed();
-            }else{
+            } else {
                 return $this->fail(20005);
             }
         }
@@ -225,6 +223,7 @@ class AuthController extends Controller
      * Refresh a token.
      * 刷新token，如果开启黑名单，以前的token便会失效。
      * 值得注意的是用上面的getToken再获取一次Token并不算做刷新，两次获得的Token是并行的，即两个都可用。
+     *
      * @return JsonResponse
      */
     public function refresh()
@@ -243,7 +242,7 @@ class AuthController extends Controller
     {
         return $this->setData([
             'access_token' => $token,
-            'token_type' => 'store-token',
+            'token_type'   => 'store-token',
             'expires_in'   => auth($this->guard)->factory()->getTTL() * 60
         ]);
     }

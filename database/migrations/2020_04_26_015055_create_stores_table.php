@@ -22,15 +22,8 @@ class CreateStoresTable extends Migration
             $table->tinyInteger("type")->default(0)->comment("商家类型");
             $table->tinyInteger("status")->default(1)->comment("状态：1.正常");
             $table->timestamp("expire_at")->comment("过期时间");
-
-            $table->char('store_mobile', 11)->comment('手机号');
-            $table->string('password', 60)->comment('密码');
-            $table->char('invite_code', 10)->comment('邀请码');
-            $table->integer('invite_id')->comment('邀请人');
-
             $table->timestamps();
             $table->softDeletes();
-            $table->index(['store_mobile']);
         });
     }
 
