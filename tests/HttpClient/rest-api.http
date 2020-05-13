@@ -23,10 +23,10 @@ Cache-Control: no-cache
 Accept: application/json
 Content-Type: application/json
 
-{"code":"xxx"}
+{"code":"023VmlDV1Cvwt11cMyAV1EojDV1VmlDC"}
 
 ###
-GET {{host}}/api/like/stores
+GET {{host}}/api/coupon/recommend
 Accept: */*
 Cache-Control: no-cache
 Accept: application/json
@@ -34,4 +34,11 @@ Content-Type: application/json
 Authorization: {{token}}
 
 ###
+GET {{host}}/api/coupon/latest
+Accept: */*
+Cache-Control: no-cache
+Accept: application/json
+Content-Type: application/json
+Authorization: {{token}}
 
+###

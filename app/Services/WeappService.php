@@ -22,11 +22,11 @@ class WeappService
         if (!$user) {
             $user = User::query()->create([
                 'weapp_openid' => $wxResult['openid'],
-//                'nickname' => $input['nickname'],
-//                'province' => $input['province'],
-//                'city' => $input['city'],
-//                'gender' => $input['gender'],
-//                'avatar_url' => $input['avatar_url']
+                'nickname'     => $input['nickname'],
+                'province'     => $input['province'],
+                'city'         => $input['city'],
+                'gender'       => $input['gender'],
+                'avatar_url'   => $input['avatar_url']
             ]);
         }
         return Auth::guard('api')->fromUser($user);
