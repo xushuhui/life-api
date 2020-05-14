@@ -25,7 +25,7 @@ Route::put('authorizations', 'AuthorizationsController@update');
 // 删除 token
 Route::delete('authorizations', 'AuthorizationsController@destroy');
 
-Route::group(['middleware' => ['auth:api']], function () {
+Route::group(['middleware' => []], function () {
     Route::get('user', 'UserController@show');
     Route::put('user', 'UserController@update');
     Route::get('user/invites', 'UserController@invites');
@@ -33,7 +33,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('like/store/{id}', 'LikeController@store');
     Route::post('like/coupon/{id}', 'LikeController@coupon');
     Route::get('like/coupons', 'LikeController@coupons');
-    Route::get('coupon', 'CouponController@index');
+    Route::post('coupon', 'CouponController@index');
     Route::get('coupon/status/{status}', 'CouponController@status');
     Route::get('coupon/stores', 'CouponController@stores');
     Route::get('coupon/store/{store_id}', 'CouponController@store');

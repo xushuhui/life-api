@@ -78,17 +78,23 @@ class CouponController extends Controller
     
     private function search()
     {
-        $name   = request('name');
-        $stores = Store::query()->where('name', 'like', "%$name%")->paginate(10);
-        return $this->setData($stores);
+        $name     = request('name');
+        $storeIds = Store::query()->where('name', 'like', "%$name%")->pluck('id');
+        $coupons  = Coupons::query()->with(['store' => function ($query) {
+            $query->select(["id", "name", "store_address"]);
+        }])->whereIn('store_id', $storeIds)->select(['coupon_name', 'store_id', 'end_time', 'created_at'])->paginate(10);
+        return $this->setData($coupons);
     }
     
     
     private function filter()
     {
-        $type   = request('type', 1);
-        $stores = Store::query()->where('type', $type)->paginate(10);
-        return $this->setData($stores);
+        $type     = request('type', 1);
+        $storeIds = Store::query()->where('type', $type)->pluck('id');
+        $coupons  = Coupons::query()->with(['store' => function ($query) {
+            $query->select(["id", "name", "store_address"]);
+        }])->whereIn('store_id', $storeIds)->select(['coupon_name', 'store_id', 'end_time', 'created_at'])->paginate(10);
+        return $this->setData($coupons);
     }
     
     /**
