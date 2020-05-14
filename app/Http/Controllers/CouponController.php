@@ -10,8 +10,8 @@ class CouponController extends Controller
 {
     
     /**
-     * @OA\Get(
-     *     path="/api/coupon/recommend", summary="首页推荐优惠券",
+     * @OA\Post(
+     *     path="/api/coupon", summary="首页推荐优惠券",
      *     @OA\Response(response="200", description="{
     data: [
     {
@@ -29,19 +29,38 @@ class CouponController extends Controller
     }"),
      *  @OA\RequestBody(@OA\MediaType(mediaType="application/json",
      *    @OA\Schema(
-     *      @OA\Property(property="coupon_name", type="string", description="优惠券名称"),
-     *      @OA\Property(property="created_at", type="string", description="开始时间"),
-     *      @OA\Property(property="end_time", type="string", description="结束时间"),
-     *      @OA\Property(property="store_id", type="integer", description="商家id"),
-     *      @OA\Property(property="store.name", type="string", description="商家名称"),
-     *      @OA\Property(property="store.store_address", type="string", description="商家地址"),
-     *             ))
+     *      @OA\Property(property="latitude", type="float", description="经度"),
+     *      @OA\Property(property="longitude", type="float", description="纬度"),
+     *   @OA\Property(property="action", type="string", description="recommend:推荐,latest:最新,search:搜索,filter:筛选"),
+     *  @OA\Property(property="type", type="int", description="商家类型，1餐馆"),
+     *     @OA\Property(property="name", type="string", description="商家名称"),
+     * ))
      *      )
      * )
      * )
      * @return \Illuminate\Http\JsonResponse
      */
-    public function recommend()
+    public function index()
+    {
+        $action = request('action');
+        switch ($action) {
+            case "recommend":
+                return $this->recommend();
+                break;
+            case "latest":
+                return $this->latest();
+                break;
+            case "search":
+                return $this->search();
+                break;
+            case "filter":
+                return $this->filter();
+                break;
+        }
+        
+    }
+    
+    private function recommend()
     {
         $coupons = Coupons::query()->with(['store' => function ($query) {
             $query->select(["id", "name", "store_address"]);
@@ -49,45 +68,27 @@ class CouponController extends Controller
         return $this->setData($coupons);
     }
     
-    /**
-     *
-     * @OA\Get(
-     *     path="/api/coupon/latest", summary="首页最新优惠券",
-     *     @OA\Response(response="200", description="{
-    data: [
-    {
-    end_time: 2020-05-22 09:46:13,
-    created_at: 2020-05-12T01:45:48.000000Z,
-    coupon_name: test,
-    store_id: 1,
-    store: {
-    id: 1,
-    name: store1,
-    store_address: 岳麓区
-    }
-    }
-    ],
-    }"),
-     *  @OA\RequestBody(@OA\MediaType(mediaType="application/json",
-     *    @OA\Schema(
-     *      @OA\Property(property="coupon_name", type="string", description="优惠券名称"),
-     *      @OA\Property(property="created_at", type="string", description="开始时间"),
-     *      @OA\Property(property="end_time", type="string", description="结束时间"),
-     *      @OA\Property(property="store_id", type="integer", description="商家id"),
-     *      @OA\Property(property="store.name", type="string", description="商家名称"),
-     *      @OA\Property(property="store.store_address", type="string", description="商家地址"),
-     *             ))
-     *      )
-     * )
-     * )
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function latest()
+    private function latest()
     {
         $coupons = Coupons::query()->with(['store' => function ($query) {
             $query->select(["id", "name", "store_address"]);
         }])->where('coupon_type', 1)->select(['coupon_name', 'store_id', 'end_time', 'created_at'])->paginate(10);
         return $this->setData($coupons);
+    }
+    
+    private function search()
+    {
+        $name   = request('name');
+        $stores = Store::query()->where('name', 'like', "%$name%")->paginate(10);
+        return $this->setData($stores);
+    }
+    
+    
+    private function filter()
+    {
+        $type   = request('type', 1);
+        $stores = Store::query()->where('type', $type)->paginate(10);
+        return $this->setData($stores);
     }
     
     /**
@@ -97,7 +98,7 @@ class CouponController extends Controller
      * )
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(int $status)
+    public function status(int $status)
     {
         $userId = request()->user()->id;
         $list   = UserCoupons::query()->where('user_id', $userId)->where('status', $status)->get();

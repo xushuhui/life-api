@@ -21,30 +21,6 @@ class StoreController extends Controller
      * @param string $name
      * @return \Illuminate\Http\JsonResponse
      */
-    public function search(string $name)
-    {
-        $stores = Store::query()->where('name','like',"%$name%")->paginate(10);
-        return $this->setData($stores);
-    }
-
-    /**
-     * @OA\Get(
-     *     path="/api/store/filter/{type}", summary="商家筛选",
-     *     @OA\Response(response="200", description="{code:0,message:'ok'}"),
-     *     @OA\RequestBody(@OA\MediaType(mediaType="application/json",
-     *             @OA\Schema(
-     *                  @OA\Property(property="type", type="int", description="商家类型，1餐馆"),
-     *             ))
-     *      )
-     * )
-     * @param int $type
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function filter(int $type)
-    {
-        $stores = Store::query()->where('type',$type)->paginate(10);
-        return $this->setData($stores);
-    }
     /**
      * @OA\Get(
      *     path="/api/stores/{id}", summary="商家详情",

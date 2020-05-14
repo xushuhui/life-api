@@ -25,6 +25,7 @@ Content-Type: application/json
 
 {"code":"023VmlDV1Cvwt11cMyAV1EojDV1VmlDC"}
 
+> {% client.global.set("token", response.body.data.access_token); %}
 ###
 GET {{host}}/api/coupon/recommend
 Accept: */*

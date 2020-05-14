@@ -29,25 +29,17 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('user', 'UserController@show');
     Route::put('user', 'UserController@update');
     Route::get('user/invites', 'UserController@invites');
-
     Route::get('like/stores', 'LikeController@stores');
     Route::post('like/store/{id}', 'LikeController@store');
     Route::post('like/coupon/{id}', 'LikeController@coupon');
     Route::get('like/coupons', 'LikeController@coupons');
-
-
-    Route::get('coupon/recommend', 'CouponController@recommend');
-    Route::get('coupon/latest', 'CouponController@latest');
-    Route::get('coupon/status/{status}', 'CouponController@index');
+    Route::get('coupon', 'CouponController@index');
+    Route::get('coupon/status/{status}', 'CouponController@status');
     Route::get('coupon/stores', 'CouponController@stores');
     Route::get('coupon/store/{store_id}', 'CouponController@store');
     Route::get('coupon/used/{coupon_id}', 'CouponController@used');
-
 //搜索
-    Route::get('store/search', 'StoreController@search');
 //筛选
-    Route::get('store/filter', 'StoreController@filter');
-
     Route::get('store/{id}', 'StoreController@show');
 });
 
