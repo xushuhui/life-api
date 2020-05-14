@@ -1,20 +1,10 @@
-GET http://life.test/api/user
+GET {{host}}/api/user
 Accept: */*
 Cache-Control: no-cache
-Accept: application/json
 Content-Type: application/json
 Authorization: {{token}}
 
 
-
-
-###
-POST http://life.test/api/like/store/1
-Accept: */*
-Cache-Control: no-cache
-Accept: application/json
-Content-Type: application/json
-Authorization: {{token}}
 
 ###
 POST {{host}}/api/authorizations
@@ -23,11 +13,11 @@ Cache-Control: no-cache
 Accept: application/json
 Content-Type: application/json
 
-{"code":"023VmlDV1Cvwt11cMyAV1EojDV1VmlDC"}
+{"code":"043WDS8i072Khu1R3I9i0alI8i0WDS8o"}
 
 > {% client.global.set("token", response.body.data.access_token); %}
 ###
-GET {{host}}/api/coupon/recommend
+GET {{host}}/api/authorizations
 Accept: */*
 Cache-Control: no-cache
 Accept: application/json

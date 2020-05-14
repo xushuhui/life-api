@@ -25,6 +25,7 @@ Route::put('authorizations', 'AuthorizationsController@update');
 // 删除 token
 Route::delete('authorizations', 'AuthorizationsController@destroy');
 
+Route::get('authorizations', 'AuthorizationsController@check');
 Route::group(['middleware' => []], function () {
     Route::get('user', 'UserController@show');
     Route::put('user', 'UserController@update');

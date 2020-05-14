@@ -82,23 +82,37 @@ class AuthorizationsController extends Controller
         if (!$wxResult) {
             return $this->fail(10001);
         }
-        $token = $this->weappService->grantToken($wxResult,$input);
+        $token = $this->weappService->grantToken($wxResult, $input);
         return $this->respondWithToken($token);
     }
-
+    
     public function update()
     {
         $token = Auth::guard('api')->refresh();
-
         return $this->respondWithToken($token);
     }
-
+    
+    /**
+     * @OA\Get(
+     *     path="/api/authorizations", summary="小程序授权登录",
+     *     @OA\Response(response="200", description="{'code':0,'message':'OK','data':{'is_valid':'true'}}"),
+     *      )
+     * )
+     * @param WeappAuthorizationRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function check()
+    {
+        $isValid = Auth::guard('api')->check();
+        return $this->setData(['is_valid' => $isValid]);
+    }
+    
     public function destroy()
     {
         Auth::guard('api')->logout();
         return $this->succeed();
     }
-
+    
     protected function respondWithToken($token)
     {
         return $this->setData([
