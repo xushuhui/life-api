@@ -36,11 +36,9 @@ Route::group(['middleware' => []], function () {
     Route::get('like/coupons', 'LikeController@coupons');
     Route::post('coupon', 'CouponController@index');
     Route::get('coupon/status/{status}', 'CouponController@status');
-    Route::get('coupon/stores', 'CouponController@stores');
+    Route::get('coupon/circle', 'CouponController@circle');
     Route::get('coupon/store/{store_id}', 'CouponController@store');
     Route::get('coupon/used/{coupon_id}', 'CouponController@used');
-//搜索
-//筛选
     Route::get('store/{id}', 'StoreController@show');
 });
 

@@ -114,7 +114,20 @@ class CouponController extends Controller
     /**
      * @OA\Get(
      *     path="/api/coupon/store/{store_id}", summary="商家详情",
-     *     @OA\Response(response="200", description="{code:0,message:'ok'}"),
+     *     @OA\Response(response="200", description="{code:0,message:'ok'，{
+    data: {
+    id: 商家id,
+    name: 商家名称,
+    logo: ,
+    photo: 店铺图片,
+    intro: 介绍,
+    store_mobile: 联系电话,
+    invite_code: 邀请码,
+    invite_id: 上级id,
+
+    store_address: 商家地址
+    }
+    }}"),
      * )
      * @return \Illuminate\Http\JsonResponse
      */
@@ -126,14 +139,17 @@ class CouponController extends Controller
     
     /**
      * @OA\Get(
-     *     path="/api/coupon/stores", summary="商家列表",
+     *     path="/api/coupon/circle", summary="遇圈",
      *     @OA\Response(response="200", description="{code:0,message:'ok'}"),
      * )
      * @return \Illuminate\Http\JsonResponse
      */
-    public function stores()
+    public function circle()
     {
-        return $this->setData();
+        $coupons = Coupons::query()->with(['store' => function ($query) {
+            $query->select(["id", "name", "store_address"]);
+        }])->where('coupon_type', 2)->select(['coupon_name', 'store_id', 'end_time', 'created_at'])->paginate(10);
+        return $this->setData($coupons);
     }
     
     /**
