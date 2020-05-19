@@ -26,7 +26,7 @@ Route::put('authorizations', 'AuthorizationsController@update');
 Route::delete('authorizations', 'AuthorizationsController@destroy');
 
 Route::get('authorizations', 'AuthorizationsController@check');
-Route::group(['middleware' => []], function () {
+Route::group(['middleware' => ['auth:api']], function () {
     Route::get('user', 'UserController@show');
     Route::put('user', 'UserController@update');
     Route::get('user/invites', 'UserController@invites');
