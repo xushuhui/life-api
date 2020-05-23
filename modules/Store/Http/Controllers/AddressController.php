@@ -10,7 +10,6 @@ class AddressController extends Controller
     /**
      * @OA\Get(path="/store/address", summary="地址列表（只有一项）",
      *     tags={"store"},
-     *     },
      *     @OA\Response(response="200", description="{code:0,message:'一直都是成功的。store_address-店铺地址；house_number-门牌号；is_empty-是否存在数据'}"),
      * @OA\RequestBody(
      *          @OA\MediaType(mediaType="application/json",

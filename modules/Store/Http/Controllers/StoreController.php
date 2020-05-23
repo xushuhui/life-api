@@ -13,7 +13,7 @@ class StoreController extends Controller
     }
 
     /**
-     * @OA\Put(path="/store/detail", summary="获取商家资料",
+     * @OA\Get(path="/store/detail", summary="获取商家资料",
      *     tags={"store"},
      *     @OA\Response(response="200", description="{code:0（0.成功，1.失败）}"),
      *     @OA\RequestBody(@OA\MediaType(mediaType="application/json",
