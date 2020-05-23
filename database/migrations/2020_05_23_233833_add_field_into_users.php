@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddHouseNumberIntoStores extends Migration
+class AddFieldIntoUsers extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddHouseNumberIntoStores extends Migration
      */
     public function up()
     {
-        Schema::table('stores',function (Blueprint $table) {
-            $table->string('house_number')->default('')->comment('门牌号');
+        Schema::table('users',function (Blueprint $table) {
+            $table->string('source', 100)->default('')->comment('来源，文字备注即可');
         });
     }
 
@@ -25,8 +25,8 @@ class AddHouseNumberIntoStores extends Migration
      */
     public function down()
     {
-        Schema::table('stores', function (Blueprint $table) {
-            $table->dropColumn('house_number');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('source');
         });
     }
 }

@@ -15,13 +15,12 @@ class CreateUserCouponsTable extends Migration
     {
         Schema::create('user_coupons', function (Blueprint $table) {
             $table->id();
-            $table->string("name",6);
+            $table->string("name",15)->comment("优惠码 = coupons表的coupon_code");
             $table->integer("user_id");
             $table->integer("coupon_id");
             $table->integer('store_id');
             $table->timestamp("use_at")->nullable();
-
-            $table->tinyInteger("status")->default(1)->comment("用户优惠券状态，1已领取,2已使用,3已过期");
+            $table->tinyInteger("status")->default(1)->comment("用户优惠券状态，1已领取,2使用中，3使用结束，4已过期");
             $table->timestamps();
 
         });

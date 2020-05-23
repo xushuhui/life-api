@@ -19,7 +19,6 @@ class CreateOrdersTable extends Migration
             $table->integer("coupon_id");
             $table->integer('store_id');
             $table->integer("store_user_id");
-            $table->string("store_user_name",5);
             $table->timestamps();
 
         });
