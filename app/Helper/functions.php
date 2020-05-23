@@ -88,3 +88,27 @@ function check_number_and_str($pwd)
 
     return false;
 }
+
+if (!function_exists('get_days_range')) {
+    /**
+     * 指定日期范围之内的所有天
+     *
+     * @param string $start_date 开始日期
+     * @param string $end_date   结束日期
+     * @param string $format     返回格式
+     *
+     * @return array
+     */
+    function get_days_range(string $start_date, string $end_date, string $format = 'Y-m-d')
+    {
+        $end   = date($format, strtotime($end_date)); // 转换为月
+        $range = [];
+        $i     = 0;
+        do {
+            $day   = date($format, strtotime($start_date . ' + ' . $i . ' day'));
+            $range[] = $day;
+            $i++;
+        } while ($day < $end);
+        return $range;
+    }
+}

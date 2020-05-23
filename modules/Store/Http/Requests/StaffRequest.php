@@ -41,7 +41,10 @@ class StaffRequest extends Request
     public function messages()
     {
         return [
-
+            'phone.required' => '手机号为必填项！',
+            'name.required' => '名称为必填项！',
+            'name.max' => '名称不超过5字！',
+            'password.required'   => '登录密码为必填项！',
         ];
     }
 }

@@ -19,4 +19,15 @@ class StoreRequest extends Request
             'type'    => 'required|numeric',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'name.required' => '手机号为必填项！',
+            'logo.required' => 'LOGO为必传项！',
+            'photo.required' => '门头照为必传项！',
+            'intro.required'   => '店铺介绍为必填项！',
+            'type.required'   => '店铺类型为必选项！',
+        ];
+    }
 }

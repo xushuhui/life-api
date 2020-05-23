@@ -20,13 +20,15 @@ class Controller extends BaseController
     protected $guard = 'store';
     protected $method;
     protected $store_id;
+    protected $store_user;
 
 
     public function __construct()
     {
         request()->offsetSet('token', request()->header('store-token'));//auth认证
 
-        $this->store_id = request()->user($this->guard)->id ?? 0;
+        $this->store_user = request()->user($this->guard) ?? [];
+        $this->store_id = $this->store_user->store_id ?? 0;
         $this->method   = strtoupper(request()->method());
     }
 

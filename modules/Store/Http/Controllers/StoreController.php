@@ -34,10 +34,16 @@ class StoreController extends Controller
      */
     public function update(StoreRequest $request)
     {
-        $store_user = $request->user($this->guard);
+        $store_user = $this->store_user;
         Store::updateStore($store_user, $request);
 
         $this->setMessage(20008);
         return $this->succeed();
+    }
+
+    public function share()
+    {
+        $store_user = $this->store_user;
+        Store::where('id', $store_user->store_id)->find();
     }
 }
