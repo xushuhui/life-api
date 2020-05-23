@@ -21,7 +21,7 @@ class CreateUserCouponsTable extends Migration
             $table->integer('store_id');
             $table->timestamp("use_at")->nullable();
 
-            $table->tinyInteger("status");
+            $table->tinyInteger("status")->default(1)->comment("用户优惠券状态，1已领取,2已使用,3已过期");
             $table->timestamps();
 
         });
