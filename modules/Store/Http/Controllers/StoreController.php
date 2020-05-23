@@ -3,6 +3,7 @@
 namespace Modules\Store\Http\Controllers;
 
 use Modules\Store\Entities\Store;
+use Modules\Store\Entities\StoreUser;
 use Modules\Store\Http\Requests\StoreRequest;
 
 class StoreController extends Controller
@@ -63,8 +64,36 @@ class StoreController extends Controller
         return $this->succeed();
     }
 
+    /**
+     * @OA\Get(path="/store/share", summary="商家分享",
+     *     tags={"store"},
+     *     @OA\Response(response="200", description="{code:0（0.成功，1.失败）}"),
+     *     @OA\RequestBody(@OA\MediaType(mediaType="application/json",
+     *             @OA\Schema(
+     *                  @OA\Property(property="store-token", type="string", description="商家Token"),
+     *             ))
+     *      )
+     * )
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function share()
     {
-        Store::where('id', $this->store_id)->find();
+        $store_user = $this->store_user;
+        if ($store_user->role == 0){ // 如果登录的会员就是店主
+            $store = Store::where('id', $this->store_id)->select('id', 'name')->first();
+            $store->phone = $store_user->phone;
+        }else{
+            $store = Store::where('id', $this->store_id)->with('shopkeeper')->select('id', 'name')->first();
+            $store->phone = $store->shopkeeper->phone;
+        }
+        $data = [
+            'shop_no' => 'SP' . $store->phone, //店铺号
+            'shop_name' => $store->name, //店铺名称
+            'share_cover' => '分享的封面图-待定', //分享图
+            'share_name' => $store_user->name, //分享人昵称
+            'share_phone' => $store_user->phone, //分享人手机号
+        ];
+        return $this->setData($data);
     }
 }

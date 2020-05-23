@@ -8,6 +8,12 @@ class Store extends Common
 {
     use Likeable;
 
+    // 店主
+    public function shopkeeper()
+    {
+        return $this->hasOne(StoreUser::class, 'store_id', 'id')->where('role', 0);
+    }
+
     /**
      * 更新商家信息
      *

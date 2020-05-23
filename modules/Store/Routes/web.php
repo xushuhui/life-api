@@ -47,6 +47,8 @@ Route::prefix('store')->group(function() {
 
         // 获取商家信息
         Route::get('/detail', 'StoreController@detail');
+        // 商家分享
+        Route::get('/share', 'StoreController@share');
         // 更新商家信息
         Route::put('/store', 'StoreController@update');
 

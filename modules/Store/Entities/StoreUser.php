@@ -154,7 +154,7 @@ class StoreUser extends Authenticatable implements JWTSubject
 
     /**
      * 通过Id获取名称
-     * 
+     *
      * @param $ids
      *
      * @return array
