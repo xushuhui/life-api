@@ -151,4 +151,17 @@ class StoreUser extends Authenticatable implements JWTSubject
         $user->invite_code = $this->makeUniqueInviteCode();
         return $user->save();
     }
+
+    /**
+     * 通过Id获取名称
+     * 
+     * @param $ids
+     *
+     * @return array
+     */
+    public static function getNameByIds($ids)
+    {
+        $list = self::whereIn('id', $ids)->select('id', 'name')->get()->toArray() ?? [];
+        return array_column($list, 'name', 'id');
+    }
 }

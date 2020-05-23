@@ -25,9 +25,26 @@ Route::prefix('store')->group(function() {
         // 图片上传
         Route::put('/upload/file', 'UploadController@file');
 
+        /**
+         * 优惠券
+         */
         // 发布优惠券
         Route::put('/coupon/publish', 'CouponController@publish');
+        // Route::delete('/coupon/delete/{id}', 'CouponController@delete');
+        // 次卡下拉列表
+        Route::get('/coupon_oncecard', 'CouponController@getOnceCardList');
+        // 储值卡下拉列表
+        Route::get('/coupon_storedvalue', 'CouponController@getStoredValueList');
+        // 优惠券详情
         Route::get('/coupon/{id}', 'CouponController@share');
+        // 次卡/储值 充值列表
+        Route::get('/recharges', 'RechargeController@index');
+        // 次卡充值
+        Route::put('/coupon/oncecard_recharge', 'RechargeController@create');
+        // 储值充值
+        Route::put('/coupon/storedvalue_recharge', 'RechargeController@create');
+
+
         // 获取商家信息
         Route::get('/detail', 'StoreController@detail');
         // 更新商家信息

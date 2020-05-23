@@ -104,6 +104,22 @@ class CouponController extends Controller
         }
     }
 
+    public function delete($id)
+    {
+        return $this->fail(10002);
+        if ($coupon = Coupon::withTrashed()->where(['store_id' => $this->store_id])->find($id)) {
+            $coupon->delete();
+            if ($coupon->trashed()) {
+                $this->setMessage(20203);
+                return $this->succeed();
+            } else {
+                return $this->fail(20204);
+            }
+        } else {
+            return $this->fail(20205);
+        }
+    }
+
     /**
      * @OA\Get(path="/store/{id}",
      *   tags={"store"},
@@ -124,7 +140,8 @@ class CouponController extends Controller
      */
     public function share(int $id)
     {
-        $data = Coupon::query()
+        $data = Coupon::withTrashed()
+            ->where('store_id', $this->store_id)
             ->with([
                 'store' => function ($query)
                 {
@@ -134,5 +151,69 @@ class CouponController extends Controller
             ->select('id', 'store_id', 'coupon_name', 'coupon_code', 'created_at', 'end_time', 'use_notice')
             ->find($id);
         return $this->setData($data);
+    }
+
+    /**
+     * @OA\Get(path="/store/coupon_oncecard",
+     *   tags={"store"},
+     *   summary="次卡券列表（次卡充值的下拉）",
+     *   description="",
+     *   parameters={},
+     *   @OA\Response(
+     *     response=200,
+     *     description="code:0（0.成功，1.失败）,message:'提示语'}",
+     *   ),
+     *     @OA\RequestBody(
+     *          @OA\MediaType(mediaType="application/json",
+     *              @OA\Schema(
+     *                  @OA\Property(property="store-token", type="string", description="商家Token"),
+     *             ))
+     *      )
+     * )
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getOnceCardList()
+    {
+        $list = Coupon::withTrashed()
+            ->where('store_id', $this->store_id)
+            ->where('coupon_type', Coupon::ONCECARD_TYPE)
+            ->where('end_time', '>=', date('Y-m-d H:i:s'))
+            ->select('id', 'coupon_name', 'total_num', 'user_num')
+            ->get();
+        // 需要检测优惠券是否已发送完毕
+        return $this->setData($list);
+    }
+
+    /**
+     * @OA\Get(path="/store/coupon_storedvalue",
+     *   tags={"store"},
+     *   summary="储值券列表（储值充值的下拉）",
+     *   description="",
+     *   parameters={},
+     *   @OA\Response(
+     *     response=200,
+     *     description="code:0（0.成功，1.失败）,message:'提示语'}",
+     *   ),
+     *     @OA\RequestBody(
+     *          @OA\MediaType(mediaType="application/json",
+     *              @OA\Schema(
+     *                  @OA\Property(property="store-token", type="string", description="商家Token"),
+     *             ))
+     *      )
+     * )
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getStoredValueList()
+    {
+        $list = Coupon::withTrashed()
+            ->where('store_id', $this->store_id)
+            ->where('coupon_type', Coupon::STOREDVALUE_TYPE)
+            ->where('end_time', '>=', date('Y-m-d H:i:s'))
+            ->select('id', 'coupon_name', 'total_num', 'user_num')
+            ->get();
+        // 需要检测优惠券是否已发送完毕
+        return $this->setData($list);
     }
 }

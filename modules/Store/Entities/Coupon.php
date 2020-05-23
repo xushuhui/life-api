@@ -2,8 +2,16 @@
 
 namespace Modules\Store\Entities;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 class Coupon extends Common
 {
+    const ONCECARD_TYPE = 3, // 次卡
+        STOREDVALUE_TYPE = 4; // 储值
+
+    use SoftDeletes;
+    protected $dates = ['delete_at'];
+
     public function store()
     {
         return $this->hasOne(Store::class, 'id', 'store_id');
@@ -29,7 +37,7 @@ class Coupon extends Common
         // 是否推荐，点击了推荐，数据将被推送到小程序遇圈页；默认为1次推荐，最新推荐将覆盖最老的推荐。
         // 同类型的其他的数据取消推荐
         if ($this->is_rec == 1) {
-            $this->where('coupon_type', $this->coupon_type)->where('id', '<>', $this->coupon_id)->update(['is_rec' => 0]);
+            $this->withTrashed()->where('coupon_type', $this->coupon_type)->where('id', '<>', $this->coupon_id)->update(['is_rec' => 0]);
         }
 
         return $this;
