@@ -13,6 +13,29 @@ class StoreController extends Controller
     }
 
     /**
+     * @OA\Put(path="/store/detail", summary="获取商家资料",
+     *     tags={"store"},
+     *     @OA\Response(response="200", description="{code:0（0.成功，1.失败）}"),
+     *     @OA\RequestBody(@OA\MediaType(mediaType="application/json",
+     *             @OA\Schema(
+     *                  @OA\Property(property="store-token", type="string", description="商家Token"),
+     *             ))
+     *      )
+     * )
+     *
+     * @param \Modules\Store\Http\Requests\StoreRequest $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function detail()
+    {
+        $store = Store::find($this->store_id);
+        $store['logo'] = set_url_prefix($store['logo']);
+        $store['photo'] = set_url_prefix($store['photo']);
+        return $this->setData($store);
+    }
+
+    /**
      * @OA\Put(path="/store/update", summary="修改商家资料",
      *     tags={"store"},
      *     @OA\Response(response="200", description="{code:0（0.成功，1.失败）}"),
@@ -34,8 +57,7 @@ class StoreController extends Controller
      */
     public function update(StoreRequest $request)
     {
-        $store_user = $this->store_user;
-        Store::updateStore($store_user, $request);
+        Store::updateStore($this->store_id, $request);
 
         $this->setMessage(20008);
         return $this->succeed();
@@ -43,7 +65,6 @@ class StoreController extends Controller
 
     public function share()
     {
-        $store_user = $this->store_user;
-        Store::where('id', $store_user->store_id)->find();
+        Store::where('id', $this->store_id)->find();
     }
 }

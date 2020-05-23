@@ -26,7 +26,7 @@ class Good extends Common
             $good = $this->find($id) ?? $this;
         }
         $good->store_id       = $object->store_id;
-        $good->photo          = $object->photo;
+        $good->photo          = remove_prefix_for_url($object->photo);
         $good->name           = $object->name;
         $good->price          = $object->price;
         $good->discount_price = $object->discount_price;

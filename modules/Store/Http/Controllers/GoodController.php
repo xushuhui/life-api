@@ -42,6 +42,9 @@ class GoodController extends Controller
             $good = $good->where('name', 'LIKE', $search . '%');
         }
         $data = $good->paginate(10);
+        foreach ($data as $v){
+            $v->photo = set_url_prefix($v->photo);
+        }
         return $this->setData($data);
     }
 
@@ -67,6 +70,7 @@ class GoodController extends Controller
     {
         $data = Good::find($id);
         if ($data) {
+            $data->photo = set_url_prefix($data->photo);
             return $this->setData($data);
         } else {
             return $this->fail(20205);

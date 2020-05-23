@@ -16,12 +16,12 @@ class Store extends Common
      *
      * @return mixed
      */
-    protected function updateStore($store_user, $request)
+    protected function updateStore($store_id, $request)
     {
-        $store                = self::find($store_user->id);
+        $store                = self::find($store_id);
         $store->name          = $request->name;
-        $store->logo          = $request->logo;
-        $store->photo         = $request->photo;
+        $store->logo          = remove_prefix_for_url($request->logo);
+        $store->photo         = remove_prefix_for_url($request->photo);
         $store->intro         = $request->intro;
         $store->type          = $request->type;
         $store->store_address = $request->store_address;

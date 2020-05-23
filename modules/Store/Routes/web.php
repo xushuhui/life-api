@@ -22,9 +22,14 @@ Route::prefix('store')->group(function() {
 
 
     Route::group(['middleware' => ['auth:store']], function () {
+        // 图片上传
+        Route::put('/upload/file', 'UploadController@file');
+
         // 发布优惠券
         Route::put('/coupon/publish', 'CouponController@publish');
         Route::get('/coupon/{id}', 'CouponController@share');
+        // 获取商家信息
+        Route::get('/detail', 'StoreController@detail');
         // 更新商家信息
         Route::put('/store', 'StoreController@update');
 

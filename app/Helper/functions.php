@@ -112,3 +112,39 @@ if (!function_exists('get_days_range')) {
         return $range;
     }
 }
+
+if (!function_exists('get_server_url')) {
+    function get_server_url(): string
+    {
+        $pact = isset($_SERVER['HTTPS']) && 'off' !== $_SERVER['HTTPS'] ? 'https://' : 'http://';
+        return $pact . ($_SERVER['SERVER_NAME'] ?? '');
+    }
+}
+
+if (!function_exists('set_url_prefix')) {
+    /**
+     * 设置 图片 的域名前缀
+     *
+     * @param $url
+     *
+     * @return string
+     */
+    function set_url_prefix($url)
+    {
+        if (empty($url)) return '';
+        return get_server_url() . $url;
+    }
+}
+
+if (!function_exists('remove_prefix_for_url')) {
+    /**
+     * 移出图片的域名前缀
+     * @param $url
+     *
+     * @return string
+     */
+    function remove_prefix_for_url($url)
+    {
+        return ltrim(parse_url($url, PHP_URL_PATH), "/");
+    }
+}
