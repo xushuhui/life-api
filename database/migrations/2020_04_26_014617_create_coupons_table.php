@@ -17,7 +17,6 @@ class CreateCouponsTable extends Migration
             $table->id();
             $table->integer('store_id');
             $table->string('coupon_name',15)->comment('优惠券名称');
-            $table->string('coupon_code',15)->comment('优惠码');
             $table->tinyInteger('coupon_type')->default(1)->comment('优惠券类型：1.普通券；2.联盟券；3.次卡券；4.储值券');
             $table->timestamp('end_time')->comment('结束时间');
             $table->integer('total_num')->unsigned()->default(0)->comment('总次数');

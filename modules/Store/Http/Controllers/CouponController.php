@@ -148,7 +148,7 @@ class CouponController extends Controller
                     $query->select('id', 'name', 'logo', 'store_address');
                 }
             ])
-            ->select('id', 'store_id', 'coupon_name', 'coupon_code', 'created_at', 'end_time', 'use_notice')
+            ->select('id', 'store_id', 'coupon_name', 'created_at', 'end_time', 'use_notice')
             ->find($id);
         return $this->setData($data);
     }

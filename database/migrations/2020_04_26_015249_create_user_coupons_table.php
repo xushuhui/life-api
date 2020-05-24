@@ -15,7 +15,7 @@ class CreateUserCouponsTable extends Migration
     {
         Schema::create('user_coupons', function (Blueprint $table) {
             $table->id();
-            $table->string("name",15)->comment("优惠码 = coupons表的coupon_code");
+            $table->string("name",15)->comment("优惠码（唯一）");
             $table->integer("user_id");
             $table->integer("coupon_id");
             $table->integer('store_id');

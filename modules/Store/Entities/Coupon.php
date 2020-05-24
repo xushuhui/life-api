@@ -21,7 +21,6 @@ class Coupon extends Common
     {
         $this->store_id        = $data['store_id'];
         $this->coupon_name     = $data['coupon_name'];
-        $this->coupon_code     = $this->makeUniqueCouponCode();
         $this->coupon_type     = $data['coupon_type'];
         $this->end_time        = $data['end_time'];
         $this->total_num       = $data['total_num'];
@@ -41,20 +40,5 @@ class Coupon extends Common
         }
 
         return $this;
-    }
-
-    /**
-     * 生成唯一的邀请码
-     *
-     * @return string
-     */
-    private function makeUniqueCouponCode()
-    {
-        $coupon_code = make_blend_code(12);
-        if (empty($this->where('coupon_code', $coupon_code)->count())) {
-            return $coupon_code;
-        } else {
-            return $this->makeUniqueCouponCode();
-        }
     }
 }
