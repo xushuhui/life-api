@@ -164,4 +164,11 @@ class StoreUser extends Authenticatable implements JWTSubject
         $list = self::whereIn('id', $ids)->select('id', 'name')->get()->toArray() ?? [];
         return array_column($list, 'name', 'id');
     }
+
+
+    public static function getUserByIds($ids)
+    {
+        $list = self::whereIn('id', $ids)->select('id', 'name', 'phone')->get()->toArray() ?? [];
+        return array_column($list, null, 'id');
+    }
 }

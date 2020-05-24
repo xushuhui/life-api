@@ -47,7 +47,8 @@ class Store extends Common
     {
         $store = self::find($store_id);
         $store->store_address = $request->store_address ?? '';
-        $store->house_number = $request->house_number ?? '';
+        $store->longitude = $request->longitude ?? '';
+        $store->latitude = $request->latitude ?? '';
         $store->save();
         return $store;
     }

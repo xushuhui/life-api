@@ -8,7 +8,7 @@ use Modules\Store\Http\Requests\CouponRequest;
 class CouponController extends Controller
 {
     /**
-     * @OA\Put(path="/store/coupon/publish", summary="商家生成优惠券",
+     * @OA\Put(path="/store/coupon/publish", summary="我的-商家生成优惠券",
      *     tags={"store"},
      *     parameters={
      *      {
@@ -121,9 +121,9 @@ class CouponController extends Controller
     }
 
     /**
-     * @OA\Get(path="/store/{id}",
+     * @OA\Get(path="/coupon/{id}",
      *   tags={"store"},
-     *   summary="优惠券分享",
+     *   summary="我的-优惠券分享",
      *   description="优惠券分享",
      *   parameters={},
      *   @OA\Response(
@@ -156,7 +156,7 @@ class CouponController extends Controller
     /**
      * @OA\Get(path="/store/coupon_oncecard",
      *   tags={"store"},
-     *   summary="次卡券列表（次卡充值的下拉）",
+     *   summary="我的-次卡充值-次卡券列表（次卡充值的下拉）",
      *   description="",
      *   parameters={},
      *   @OA\Response(
@@ -188,7 +188,7 @@ class CouponController extends Controller
     /**
      * @OA\Get(path="/store/coupon_storedvalue",
      *   tags={"store"},
-     *   summary="储值券列表（储值充值的下拉）",
+     *   summary="我的-储值充值-储值券列表（储值充值的下拉）",
      *   description="",
      *   parameters={},
      *   @OA\Response(

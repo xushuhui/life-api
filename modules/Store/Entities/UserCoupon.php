@@ -41,12 +41,11 @@ class UserCoupon extends Common
 
     protected function storeRecharge($request)
     {
-        $this->name        = $request->name;
+        $this->name        = $request->coupon_code;
         $this->user_id        = $request->user_id;
         $this->coupon_id        = $request->coupon_id;
         $this->store_id        = $request->store_id;
         $this->store_user        = $request->store_user;
-        $this->status        = $request->status;
         return $this->save();
     }
 }

@@ -15,6 +15,9 @@
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('store')->group(function() {
+    Route::get('', function (){
+        var_dump('store 模块');
+    });
     Route::post('/getCode', 'AuthController@getCode');
     Route::post('/login', 'AuthController@login');
     Route::post('/register', 'AuthController@register');
@@ -23,7 +26,7 @@ Route::prefix('store')->group(function() {
 
     Route::group(['middleware' => ['auth:store']], function () {
         // 图片上传
-        Route::put('/upload/file', 'UploadController@file');
+        Route::put('/upload/file', 'UploadController@files');
 
         /**
          * 优惠券
@@ -82,5 +85,10 @@ Route::prefix('store')->group(function() {
         Route::get('/address/{id}', 'AddressController@detail');
         Route::put('/address', 'AddressController@update');
         Route::delete('/address/{id}', 'AddressController@delete');
+
+        /**
+         * 会员管理
+         */
+        Route::get('/users', 'UserController@index');
     });
 });

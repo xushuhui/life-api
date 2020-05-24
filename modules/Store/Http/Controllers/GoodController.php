@@ -8,7 +8,7 @@ use Modules\Store\Http\Requests\GoodRequest;
 class GoodController extends Controller
 {
     /**
-     * @OA\Get(path="/store/good", summary="商品列表",
+     * @OA\Get(path="/store/good", summary="我的-商品-商品列表",
      *     tags={"store"},
      *     parameters={
      *      {
@@ -51,7 +51,7 @@ class GoodController extends Controller
     /**
      * @OA\Get(path="/store/good/{id}",
      *   tags={"store"},
-     *   summary="商品详情",
+     *   summary="我的-商品-商品详情",
      *   description="",
      *   parameters={},
      *   @OA\Response(
@@ -78,7 +78,7 @@ class GoodController extends Controller
     }
 
     /**
-     * @OA\Put(path="/store/good", summary="新增/更新商品",
+     * @OA\Put(path="/store/good", summary="我的-商品-新增/更新商品",
      *     tags={"store"},
      *     parameters={
      *      {
@@ -138,7 +138,7 @@ class GoodController extends Controller
     /**
      * @OA\Delete(path="/store/good/{id}",
      *   tags={"store"},
-     *   summary="商品删除",
+     *   summary="我的-商品-删除",
      *   description="",
      *   parameters={},
      *   @OA\Response(

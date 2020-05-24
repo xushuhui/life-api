@@ -16,6 +16,21 @@ class UploadController extends Controller
         $this->server_url = get_server_url();
     }
 
+    /**
+     * @OA\Put(path="/store/upload/file", summary="图片上传",
+     *     tags={"store"},
+     *     @OA\Response(response="200", description="{code:0（0.成功，1.失败）}"),
+     *     @OA\RequestBody(@OA\MediaType(mediaType="application/json",
+     *             @OA\Schema(
+     *                  @OA\Property(property="store-token", type="string", description="商家Token"),
+     *             ))
+     *      )
+     * )
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function files(Request $request)
     {
         $file = $request->file('file');

@@ -65,7 +65,7 @@ class StoreController extends Controller
     }
 
     /**
-     * @OA\Get(path="/store/share", summary="商家分享",
+     * @OA\Get(path="/store/share", summary="我的-分享店铺",
      *     tags={"store"},
      *     @OA\Response(response="200", description="{code:0（0.成功，1.失败）}"),
      *     @OA\RequestBody(@OA\MediaType(mediaType="application/json",

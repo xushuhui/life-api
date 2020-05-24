@@ -16,7 +16,8 @@ class AddressRequest extends Request
                 'required',
                 'max:100'
             ],
-            'house_number'   => 'required|max:100',
+            'longitude'   => 'required',
+            'latitude'   => 'required',
         ];
     }
 
@@ -25,8 +26,8 @@ class AddressRequest extends Request
         return [
             'store_address.required' => '店铺地址为必填项！',
             'store_address.max' => '店铺地址不超过100字！',
-            'house_number.required'   => '门牌号为必填项！',
-            'house_number.max' => '门牌号不超过100字！',
+            'longitude.required'   => '经度为必传项！',
+            'latitude.required' => '纬度为必传项！',
         ];
     }
 }

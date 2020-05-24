@@ -12,7 +12,7 @@ use Modules\Store\Http\Requests\RechargeRequest;
 class RechargeController extends Controller
 {
     /**
-     * @OA\Get(path="/store/recharges", summary="次卡 、储值 充值记录",
+     * @OA\Get(path="/store/recharges", summary="我的-次卡、储值充值-记录",
      *     tags={"store"},
      *     parameters={
      *     {
@@ -64,9 +64,8 @@ class RechargeController extends Controller
             ->from('user_coupons as uc')
             ->where([
             'uc.store_id' => $this->store_id,
-            'c.coupon_type' => $coupon_type, // 券的类型必须做好限制
-        ])->join('coupons as c', 'c.id', 'uc.coupon_id')
-            ->join('users as u', 'u.id', 'uc.user_id');
+            'uc.coupon_type' => $coupon_type, // 券的类型必须做好限制
+        ])->join('users as u', 'u.id', 'uc.user_id');
         if (!empty($search)) {
             $query = $query->where(function ($query) use ($search)
             {
@@ -88,7 +87,7 @@ class RechargeController extends Controller
     }
 
     /**
-     * @OA\Put(path="/store/coupon/oncecard_recharge", summary="次卡充值",
+     * @OA\Put(path="/store/coupon/oncecard_recharge", summary="我的-次卡充值",
      *     tags={"store"},
      *     parameters={
      *      {
@@ -118,7 +117,7 @@ class RechargeController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     /**
-     * @OA\Put(path="/store/coupon/storedvalue_recharge", summary="储值充值",
+     * @OA\Put(path="/store/coupon/storedvalue_recharge", summary="我的-储值充值",
      *     tags={"store"},
      *     parameters={
      *      {
@@ -168,10 +167,9 @@ class RechargeController extends Controller
 
         // 登录的商家/员工的Id，即为操作人
         $request->user_id = $user->id;
-        $request->name = $coupon->coupon_name;
+        $request->name = $coupon->coupon_code;
         $request->store_id = $this->store_id;
         $request->store_user = $this->store_user->id;
-        $request->status = 0;
         if (UserCoupon::storeRecharge($request)){
             $this->setMessage(20406);
             return $this->succeed();

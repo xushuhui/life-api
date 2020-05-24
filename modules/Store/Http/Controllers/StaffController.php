@@ -17,7 +17,7 @@ class StaffController extends Controller
     }
 
     /**
-     * @OA\Get(path="/store/staff", summary="员工列表",
+     * @OA\Get(path="/store/staff", summary="我的-员工管理-员工列表",
      *     tags={"store"},
      *     parameters={
      *      {
@@ -48,7 +48,7 @@ class StaffController extends Controller
     /**
      * @OA\Get(path="/store/staff/{id}",
      *   tags={"store"},
-     *   summary="员工详情",
+     *   summary="我的-员工管理-员工详情",
      *   description="",
      *   parameters={},
      *   @OA\Response(
@@ -74,7 +74,7 @@ class StaffController extends Controller
     }
 
     /**
-     * @OA\Put(path="/store/staff", summary="新增/更新 员工",
+     * @OA\Put(path="/store/staff", summary="我的-员工管理-新增/更新 员工",
      *     tags={"store"},
      *     parameters={
      *      {
@@ -135,7 +135,7 @@ class StaffController extends Controller
     /**
      * @OA\Delete(path="/store/staff/{id}",
      *   tags={"store"},
-     *   summary="员工删除",
+     *   summary="我的-员工管理-员工删除",
      *   description="",
      *   parameters={},
      *   @OA\Response(
