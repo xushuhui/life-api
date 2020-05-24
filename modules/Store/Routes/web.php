@@ -14,6 +14,33 @@
 
 use Illuminate\Support\Facades\Route;
 
+if (!function_exists('axios_request')) {
+    /**
+     * 跨域问题设置
+     */
+    function axios_request()
+    {
+        $http_origin = !isset($_SERVER['HTTP_ORIGIN']) ? "*" : $_SERVER['HTTP_ORIGIN'];
+
+        $http_origin = (empty($http_origin) || $http_origin == null || $http_origin == 'null') ? '*' : $http_origin;
+
+        $_SERVER['HTTP_ORIGIN'] = $http_origin;
+
+        //if(strtoupper($_SERVER['REQUEST_METHOD'] ?? "") == 'OPTIONS'){  //vue 的 axios 发送 OPTIONS 请求，进行验证
+        //    return [];
+        //}
+
+        header('Access-Control-Allow-Origin: ' . $http_origin);// . $http_origin
+        header('Access-Control-Allow-Credentials: true');//【如果请求方存在域名请求，那么为true;否则为false】
+        header('Access-Control-Allow-Headers: Authorization, X-Requested-With, Content-Type, Access-Control-Allow-Headers, x-xsrf-token, Accept, x-file-name, x-frame-options, X-Requested-With, hanfuhui_fromclient, hanfuhui_token, hanfuhui_version');
+        header('Access-Control-Allow-Methods: *');
+        header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS, PATCH');
+
+        //header('X-Frame-Options:SAMEORIGIN');
+    }
+}
+axios_request();
+
 Route::prefix('store')->group(function() {
     Route::get('', function (){
         var_dump('store 模块');
@@ -90,5 +117,13 @@ Route::prefix('store')->group(function() {
          * 会员管理
          */
         Route::get('/users', 'UserController@index');
+
+        /**
+         * 扫码核销
+         */
+        // 检测优惠码是否存在
+        Route::post('/check', 'DeductionCodeController@check');
+        // 核销流程
+        Route::post('/write_off', 'DeductionCodeController@writeOff');
     });
 });
