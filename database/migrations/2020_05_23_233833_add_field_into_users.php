@@ -15,6 +15,7 @@ class AddFieldIntoUsers extends Migration
     {
         Schema::table('users',function (Blueprint $table) {
             $table->string('source', 100)->default('')->comment('来源，文字备注即可');
+            $table->tinyInteger('share_role')->default(0)->comment("分享人类型：0.会员；1.商家/员工");
         });
     }
 
@@ -27,6 +28,7 @@ class AddFieldIntoUsers extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('source');
+            $table->dropColumn('share_role');
         });
     }
 }
