@@ -32,7 +32,7 @@ class UserController extends Controller
      *          "required" : false
      *      },
      *     },
-     *     @OA\Response(response="200", description="{code:0,message:'一直都是成功的。current_page-当前页码；per_page-每页数量；total-总数量；share_name-分享人名称；share_phone-分享人手机号'}"),
+     *     @OA\Response(response="200", description="{code:0（0.成功，1.失败）,message:'提示语，一直都是成功的。current_page-当前页码；per_page-每页数量；total-总数量；share_name-分享人名称；share_phone-分享人手机号'}"),
      * @OA\RequestBody(
      *          @OA\MediaType(mediaType="application/json",
      *              @OA\Schema(
@@ -65,7 +65,7 @@ class UserController extends Controller
         if (!empty($start_date)) $query = $query->where('created_at', '>=', $start_date);
         if (!empty($end_date)) $query = $query->where('created_at', '<=', $end_date);
         $order_model = new Order;
-        $list = $query->select('nickname', 'phone', 'source', 'created_at', 'parent_id', 'share_role')->paginate(20)->each(function ($item) use ($order_model)
+        $list = $query->select('nickname', 'phone', 'source', 'created_at', 'parent_id', 'share_role')->paginate(10)->each(function ($item) use ($order_model)
             {
                 $item->order_nums = $order_model->where('user_id', $item->user_id)->where('store_id', $this->store_id)->count();
             });

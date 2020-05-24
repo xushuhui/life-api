@@ -75,7 +75,7 @@ class RechargeController extends Controller
         }
         if (!empty($start_date)) $query = $query->where('uc.created_at', '>=', $start_date);
         if (!empty($end_date)) $query = $query->where('uc.created_at', '<=', $end_date);
-        $list = $query->select('u.nickname', 'u.phone', 'uc.name', 'uc.created_at', 'uc.store_user')->paginate(20);
+        $list = $query->select('u.nickname', 'u.phone', 'uc.name', 'uc.created_at', 'uc.store_user')->paginate(10);
 
         // 获取所有的操作人名称
         $store_users = StoreUser::getNameByIds(array_column($list->toArray()['data'], 'store_user'));
@@ -151,7 +151,8 @@ class RechargeController extends Controller
         if (!$user = User::where('phone', $request->phone)->first()){
             return $this->fail(20401);
         }
-        if (!$coupon = Coupon::withTrashed()->where('store_id', $this->store_id)->find($request->coupon_id)){
+        // 锁表
+        if (!$coupon = Coupon::withTrashed()->where('store_id', $this->store_id)->lock()->find($request->coupon_id)){
             return $this->fail(20402);
         }
         // 优惠券必须是 次卡券或者储值券
@@ -167,7 +168,6 @@ class RechargeController extends Controller
 
         // 登录的商家/员工的Id，即为操作人
         $request->user_id = $user->id;
-        $request->name = $coupon->coupon_code;
         $request->store_id = $this->store_id;
         $request->store_user = $this->store_user->id;
         if (UserCoupon::storeRecharge($request)){

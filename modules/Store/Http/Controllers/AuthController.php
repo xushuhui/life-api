@@ -21,7 +21,7 @@ class AuthController extends Controller
     public function __construct()
     {
         parent::__construct();
-        // $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'getCode']]);
     }
 
     /**
@@ -45,6 +45,8 @@ class AuthController extends Controller
      */
     public function getCode(Request $request)
     {
+        var_dump('getCode');
+        exit;
         $phone = $request->input('phone', '');
         if (!check_mobile($phone)) {
             return $this->fail(20001);
@@ -191,27 +193,6 @@ class AuthController extends Controller
 
     }
 
-
-    /**
-     * @OA\Get(path="/store/logout",
-     *   tags={"store"},
-     *   summary="退出登录",
-     *   description="退出登录",
-     *   parameters={},
-     *   @OA\Response(
-     *     response=200,
-     *     description="code:0（0.成功，1.失败）,message:'提示语'}",
-     *   ),
-     *     @OA\RequestBody(
-     *          @OA\MediaType(mediaType="application/json",
-     *              @OA\Schema(
-     *                  @OA\Property(property="store-token", type="string", description="商家Token"),
-     *             ))
-     *      )
-     * )
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function logout()
     {
         auth($this->guard)->logout();

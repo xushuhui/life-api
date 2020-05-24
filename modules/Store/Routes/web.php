@@ -122,7 +122,7 @@ Route::prefix('store')->group(function() {
          * 扫码核销
          */
         // 检测优惠码是否存在
-        Route::post('/check', 'DeductionCodeController@check');
+        Route::post('/code_check', 'DeductionCodeController@check');
         // 核销流程
         Route::post('/write_off', 'DeductionCodeController@writeOff');
     });

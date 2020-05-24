@@ -111,7 +111,7 @@ class UserStatisticsController extends Controller
                         $query->select('id', 'phone', 'avatar_url', 'nickname');
                     }
                 ])
-                ->paginate(20)
+                ->paginate(10)
                 ->toArray() ?? [];
 
         $list['total_nums']  = $total_nums;
@@ -176,7 +176,7 @@ class UserStatisticsController extends Controller
         $order_model = new Order;
         $list = $query
                 ->select('users.nickname', 'users.phone', 'users.source', 'users.created_at')
-                ->paginate(20)->each(function ($item) use ($order_model)
+                ->paginate(15)->each(function ($item) use ($order_model)
             {
                 $item->order_nums = $order_model->where('user_id', $item->user_id)->where('store_id', $this->store_id)->count();
             })->toArray() ?? [];

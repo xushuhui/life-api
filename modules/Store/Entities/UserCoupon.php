@@ -41,11 +41,26 @@ class UserCoupon extends Common
 
     protected function storeRecharge($request)
     {
-        $this->name        = $request->coupon_code;
+        $this->name        = $this->makeUniqueCouponCode();
         $this->user_id        = $request->user_id;
         $this->coupon_id        = $request->coupon_id;
         $this->store_id        = $request->store_id;
         $this->store_user        = $request->store_user;
         return $this->save();
+    }
+
+    /**
+     * 生成唯一的邀请码
+     *
+     * @return string
+     */
+    private function makeUniqueCouponCode()
+    {
+        $name = make_blend_code(6);
+        if (empty($this->where('name', $name)->count())) {
+            return $name;
+        } else {
+            return $this->makeUniqueCouponCode();
+        }
     }
 }
