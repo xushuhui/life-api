@@ -37,11 +37,11 @@ class GoodController extends Controller
     public function index()
     {
         $search = request()->input('search', '');
-        $good   = Good::where(['store_id' => $this->store_id]);
+        $good   = Good::query()->where(['store_id' => $this->store_id]);
         if ($search) {
             $good = $good->where('name', 'LIKE', $search . '%');
         }
-        $data = $good->paginate(10);
+        $data = $good->orderBy('id', 'DESC')->paginate(10);
         foreach ($data as $v){
             $v->photo = set_url_prefix($v->photo);
         }

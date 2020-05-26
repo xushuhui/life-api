@@ -111,6 +111,9 @@ class UserStatisticsController extends Controller
                         $query->select('id', 'phone', 'avatar_url', 'nickname');
                     }
                 ])
+                ->where('created_at', '>=', $today_start)
+                ->where('created_at', '<=', $today_end)
+                ->orderBy('created_at', 'DESC')
                 ->paginate(10)
                 ->toArray() ?? [];
 
@@ -176,6 +179,7 @@ class UserStatisticsController extends Controller
         $order_model = new Order;
         $list = $query
                 ->select('users.nickname', 'users.phone', 'users.source', 'users.created_at')
+                ->orderBy('created_at', 'DESC')
                 ->paginate(15)->each(function ($item) use ($order_model)
             {
                 $item->order_nums = $order_model->where('user_id', $item->user_id)->where('store_id', $this->store_id)->count();

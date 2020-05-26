@@ -160,7 +160,7 @@ class DeductionCodeController extends Controller
             // 2.order表录入
             Order::create([
                 'user_id' => $coupon->user_id,
-                'coupon_id' => $coupon->coupon_id,
+                'coupon_id' => $coupon->id, // user_coupons的主键
                 'store_id' => $coupon->store_id,
                 'store_user_id' => $this->store_user->id, // 核销人
                 'use_nums' => $coupon->coupon_type == 3 ? 1 : $request->moneys ?? 0, // 核销额度

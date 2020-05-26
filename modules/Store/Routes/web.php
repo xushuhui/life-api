@@ -51,7 +51,8 @@ Route::prefix('store')->group(function() {
     Route::post('/logout', 'AuthController@logout');
 
 
-    Route::group(['middleware' => ['auth:store']], function () {
+    // auth:store
+    Route::group(['middleware' => ['store.jwt']], function () {
         // 图片上传
         Route::put('/upload/file', 'UploadController@files');
 
@@ -114,9 +115,29 @@ Route::prefix('store')->group(function() {
         Route::delete('/address/{id}', 'AddressController@delete');
 
         /**
-         * 会员管理
+         * 用户管理
          */
         Route::get('/users', 'UserController@index');
+
+        /**
+         * 会员管理
+         */
+        Route::get('/cardusers', 'CardUserController@index');
+        Route::get('/oncecard/{user_id}', 'CardUserController@oncecard');
+        Route::get('/storedvalue/{user_id}', 'CardUserController@storedvalue');
+        Route::get('/getCouponDetail/{id}', 'CardUserController@getCouponDetail');
+
+        /**
+         * 订单
+         */
+        Route::get('/order/statistics', 'OrderController@statistics');
+        Route::get('/order/statisticCoupons', 'OrderController@statisticCoupons');
+        Route::get('/order/lists', 'OrderController@lists');
+        Route::get('/order/orderLists', 'OrderController@orderLists');
+        Route::get('/order/coupons', 'OrderController@coupons');
+        Route::get('/order/couponLists/{coupon_id}', 'OrderController@couponLists');
+        Route::get('/order/couponListExport/{coupon_id}', 'OrderController@couponListExport');
+
 
         /**
          * 扫码核销

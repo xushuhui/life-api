@@ -52,4 +52,10 @@ class Store extends Common
         $store->save();
         return $store;
     }
+
+    public static function getStoreByIds($ids, $field = '*')
+    {
+        $list = self::whereIn('id', $ids)->select($field)->get()->toArray() ?? [];
+        return array_column($list, null, 'id');
+    }
 }

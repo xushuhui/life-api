@@ -8,9 +8,9 @@ class User extends Common
 {
     use Liker;
 
-    public static function getUserByIds($ids)
+    public static function getUserByIds($ids, $field = ['id', 'nickname', 'phone'])
     {
-        $list = self::whereIn('id', $ids)->select('id', 'nickname', 'phone')->get()->toArray() ?? [];
+        $list = self::whereIn('id', $ids)->select($field)->get()->toArray() ?? [];
         return array_column($list, null, 'id');
     }
 }

@@ -107,7 +107,7 @@ class CouponController extends Controller
     public function delete($id)
     {
         return $this->fail(10002);
-        if ($coupon = Coupon::withTrashed()->where(['store_id' => $this->store_id])->find($id)) {
+        if ($coupon = Coupon::query()->where(['store_id' => $this->store_id])->find($id)) {
             $coupon->delete();
             if ($coupon->trashed()) {
                 $this->setMessage(20203);
@@ -140,7 +140,7 @@ class CouponController extends Controller
      */
     public function share(int $id)
     {
-        $data = Coupon::withTrashed()
+        $data = Coupon::query()
             ->where('store_id', $this->store_id)
             ->with([
                 'store' => function ($query)
@@ -175,7 +175,7 @@ class CouponController extends Controller
      */
     public function getOnceCardList()
     {
-        $list = Coupon::withTrashed()
+        $list = Coupon::query()
             ->where('store_id', $this->store_id)
             ->where('coupon_type', Coupon::ONCECARD_TYPE)
             ->where('end_time', '>=', date('Y-m-d H:i:s'))
@@ -207,7 +207,7 @@ class CouponController extends Controller
      */
     public function getStoredValueList()
     {
-        $list = Coupon::withTrashed()
+        $list = Coupon::query()
             ->where('store_id', $this->store_id)
             ->where('coupon_type', Coupon::STOREDVALUE_TYPE)
             ->where('end_time', '>=', date('Y-m-d H:i:s'))

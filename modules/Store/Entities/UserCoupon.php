@@ -9,6 +9,11 @@ class UserCoupon extends Common
         return $this->hasOne(Coupon::class, 'id', 'coupon_id');
     }
 
+    public function store()
+    {
+        return $this->hasOne(Store::class, 'id', 'store_id');
+    }
+
     public function user()
     {
         return $this->hasOne(User::class, 'id', 'user_id');

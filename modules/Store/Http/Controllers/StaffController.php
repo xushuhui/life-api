@@ -40,8 +40,7 @@ class StaffController extends Controller
      */
     public function index()
     {
-        $list   = StoreUser::where($this->comm_where)->paginate(10);
-
+        $list   = StoreUser::where($this->comm_where)->orderBy('id', 'DESC')->paginate(10);
         return $this->setData($list);
     }
 

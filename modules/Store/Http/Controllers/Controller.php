@@ -25,7 +25,7 @@ class Controller extends BaseController
 
     public function __construct()
     {
-        request()->offsetSet('token', request()->header('store-token'));//auth认证
+        request()->offsetSet('token', request()->header('store-token') ?? request()->input('store-token'));//auth认证
 
         $this->store_user = request()->user($this->guard) ?? [];
         $this->store_id = $this->store_user->store_id ?? 0;

@@ -36,9 +36,15 @@ class Coupon extends Common
         // 是否推荐，点击了推荐，数据将被推送到小程序遇圈页；默认为1次推荐，最新推荐将覆盖最老的推荐。
         // 同类型的其他的数据取消推荐
         if ($this->is_rec == 1) {
-            $this->withTrashed()->where('coupon_type', $this->coupon_type)->where('id', '<>', $this->coupon_id)->update(['is_rec' => 0]);
+            $this->where('coupon_type', $this->coupon_type)->where('id', '<>', $this->coupon_id)->update(['is_rec' => 0]);
         }
 
         return $this;
+    }
+
+    public static function getCouponByIds($ids, $field = '*')
+    {
+        $list = self::query()->whereIn('id', $ids)->select($field)->get()->toArray() ?? [];
+        return array_column($list, null, 'id');
     }
 }
