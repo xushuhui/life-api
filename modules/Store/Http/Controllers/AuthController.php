@@ -99,9 +99,17 @@ class AuthController extends Controller
             $request_data             = $request->only(['phone', 'password']);
             $request_data['phone']    = $request->input('phone', '');
             $request_data['password'] = $request->input('password', '');
+            $shop_no = $request->shop_no;
+            $store_id = StoreUser::checkSeller($shop_no);
+            if (empty($store_id)) return $this->fail(20009);
 
             if (!StoreUser::checkMobild($request_data['phone'])) {
                 return $this->fail(20002);
+            }
+
+            // 店员登录必须是传参的规定所属的店铺
+            if (!StoreUser::checkStaffForSeller($store_id, $request_data['phone'])){
+                return $this->fail(20010);
             }
 
             if (!$token = Auth::guard($this->guard)->attempt($request_data)) {

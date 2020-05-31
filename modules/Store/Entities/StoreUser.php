@@ -94,12 +94,40 @@ class StoreUser extends Authenticatable implements JWTSubject
         }
     }
 
+    /**
+     * 检测店铺号是否存在
+     *
+     * @param string $phone
+     *
+     * @return mixed
+     */
+    public static function checkSeller(string $phone)
+    {
+        $phone = substr($phone, 2);
+        return self::query()->where('phone', $phone)->where('role', self::ROLE_STORE)->value('store_id', 0);
+    }
+
+    /**
+     * 检测店员与店铺是否匹配
+     * @param $store_id
+     * @param $phone
+     *
+     * @return bool
+     */
+    public static function checkStaffForSeller($store_id, $phone)
+    {
+        return self::query()->where([
+            'store_id' => $store_id,
+            'phone' => $phone,
+        ])->exists();
+    }
+
     public static function checkMobild(string $phone, $id = 0)
     {
         $where = [];
         if (!empty($id)) $where[] = ['id', '<>', $id];
         $where[] = ['phone', '=', $phone];
-        return self::where($where)->exists();
+        return self::query()->where($where)->exists();
     }
 
 

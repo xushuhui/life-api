@@ -12,6 +12,7 @@ class LoginRequest extends Request
     public function rules()
     {
         return [
+            'shop_no' => 'required',
             'phone' => [
                 'required',
                 function($attribute, $value, $fail){
