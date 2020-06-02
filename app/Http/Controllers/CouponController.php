@@ -110,7 +110,7 @@ class CouponController extends Controller
         $coupons  = UserCoupons::query()->with(['store' => function ($query) {
             $query->select(["id", "name", "store_address"]);
         }])->where('user_id', $userId)->where('coupon_type', $type)->select(['name', 'store_id', 'use_at', 'created_at'])->paginate(10);
-        return $this->setData($list);
+        return $this->setData($coupons);
     }
     /**
      * @OA\Get(
