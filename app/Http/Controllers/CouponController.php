@@ -107,10 +107,9 @@ class CouponController extends Controller
     public function type(int $type)
     {
         $userId = 1;
-        $list   = UserCoupons::query()->where('user_id', $userId)->where('coupon_type', $type)->paginate(10);
         $coupons  = UserCoupons::query()->with(['store' => function ($query) {
             $query->select(["id", "name", "store_address"]);
-        }])->whereIn('store_id', $storeIds)->select(['name', 'store_id', 'use_at', 'created_at'])->paginate(10);
+        }])->where('user_id', $userId)->where('coupon_type', $type)->select(['name', 'store_id', 'use_at', 'created_at'])->paginate(10);
         return $this->setData($list);
     }
     /**
