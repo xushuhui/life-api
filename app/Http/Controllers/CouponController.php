@@ -96,21 +96,20 @@ class CouponController extends Controller
         }])->whereIn('store_id', $storeIds)->select(['coupon_name', 'store_id', 'end_time', 'created_at'])->paginate(10);
         return $this->setData($coupons);
     }
-    
-    /**
+ 
+      /**
      * @OA\Get(
-     *     path="/api/coupon/status/{status}", summary="用户优惠券列表",
+     *     path="/api/coupon/type/{type}", summary="用户已用优惠券列表",
      *     @OA\Response(response="200", description="{code:0,message:'ok'}"),
      * )
      * @return \Illuminate\Http\JsonResponse
      */
-    public function status(int $status)
+    public function type(int $type)
     {
-        $userId = request()->user()->id;
-        $list   = UserCoupons::query()->where('user_id', $userId)->where('status', $status)->get();
+        $userId = 1;
+        $list   = UserCoupons::query()->where('user_id', $userId)->where('coupon_type', $type)->paginate(10);
         return $this->setData($list);
     }
-    
     /**
      * @OA\Get(
      *     path="/api/coupon/store/{store_id}", summary="商家详情",
@@ -154,7 +153,7 @@ class CouponController extends Controller
     
     /**
      * @OA\Get(
-     *     path="/api/coupon/used/{coupon_id}", summary="已使用优惠券性情",
+     *     path="/api/coupon/used/{coupon_id}", summary="已使用优惠券详情",
      *     @OA\Response(response="200", description="{code:0,message:'ok'}"),
      * )
      * @param int $coupon_id

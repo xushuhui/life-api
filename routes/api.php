@@ -26,7 +26,7 @@ Route::put('authorizations', 'AuthorizationsController@update');
 Route::delete('authorizations', 'AuthorizationsController@destroy');
 
 Route::get('authorizations', 'AuthorizationsController@check');
-Route::group(['middleware' => ['auth:api']], function () {
+Route::group(['middleware' => []], function () {
     Route::get('user', 'UserController@show');
     Route::put('user', 'UserController@update');
     Route::get('user/invites', 'UserController@invites');
@@ -35,7 +35,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('like/coupon/{id}', 'LikeController@coupon');
     Route::get('like/coupons', 'LikeController@coupons');
     Route::post('coupon', 'CouponController@index');
-    Route::get('coupon/status/{status}', 'CouponController@status');
+    Route::get('coupon/type/{type}', 'CouponController@type');
     Route::get('coupon/circle', 'CouponController@circle');
     Route::get('coupon/store/{store_id}', 'CouponController@store');
     Route::get('coupon/used/{coupon_id}', 'CouponController@used');
