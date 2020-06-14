@@ -2,7 +2,7 @@
 
 namespace Modules\Store\Http\Requests;
 
-class RegisterRequest extends Request
+class ResetRequest extends Request
 {
     /**
      * Get the validation rules that apply to the request.
@@ -22,7 +22,6 @@ class RegisterRequest extends Request
                 }
             ],
             'password'   => 'required|confirmed',
-            'invite_code'   => 'required|exists:Modules\Store\Entities\StoreUser,invite_code',
             'sms_code'   => 'required',
         ];
     }
@@ -33,8 +32,6 @@ class RegisterRequest extends Request
             'phone.required' => '手机号为必填项！',
             'password.required'   => '密码为必填项！',
             'password.confirmed'   => '两次密码不一致！',
-            'invite_code.required'   => '邀请码为必填项！',
-            'invite_code.exists'   => '邀请码错误！',
             'sms_code.required'   => '验证码为必填项！',
         ];
     }

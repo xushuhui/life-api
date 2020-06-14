@@ -94,6 +94,11 @@ class StoreUser extends Authenticatable implements JWTSubject
         }
     }
 
+    public static function setPass(string $phone, string $password)
+    {
+        return self::where('phone', $phone)->update(['password' => hash_make($password)]);
+    }
+
     /**
      * 检测店铺号是否存在
      *

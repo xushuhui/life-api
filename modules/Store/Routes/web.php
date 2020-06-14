@@ -49,6 +49,7 @@ Route::prefix('store')->group(function() {
     Route::post('/login', 'AuthController@login');
     Route::post('/register', 'AuthController@register');
     Route::post('/logout', 'AuthController@logout');
+    Route::post('/reset', 'AuthController@reset');
 
 
     // auth:store
