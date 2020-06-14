@@ -75,6 +75,7 @@ class StoreUser extends Authenticatable implements JWTSubject
             // 商家信息表
             $store = Store::create([
                 'name' => $this->phone,
+                'store_name' => $this->phone,
                 'expire_at' => date('Y-m-d H:i:s', strtotime('+1 month')),
             ]);
 
@@ -88,8 +89,6 @@ class StoreUser extends Authenticatable implements JWTSubject
             return $this;
 
         }catch (\Exception $e){
-            var_dump($e->getMessage());
-            
             DB::rollBack();
 
             return false;
