@@ -88,6 +88,8 @@ class StoreUser extends Authenticatable implements JWTSubject
             return $this;
 
         }catch (\Exception $e){
+            var_dump($e->getMessage());
+            
             DB::rollBack();
 
             return false;
