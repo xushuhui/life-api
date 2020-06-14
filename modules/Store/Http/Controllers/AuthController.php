@@ -49,9 +49,9 @@ class AuthController extends Controller
         if (!check_mobile($phone)) {
             return $this->fail(20001);
         }
-        if (!StoreUser::checkMobild($phone)) {
-            return $this->fail(20002);
-        }
+        // if (!StoreUser::checkMobild($phone)) {
+        //     return $this->fail(20002);
+        // }
         $sms_code = 123456;
         $this->setMessage(20007);
         $this->setData($sms_code);
