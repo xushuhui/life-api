@@ -45,8 +45,6 @@ class AuthController extends Controller
      */
     public function getCode(Request $request)
     {
-        var_dump('getCode');
-        exit;
         $phone = $request->input('phone', '');
         if (!check_mobile($phone)) {
             return $this->fail(20001);
