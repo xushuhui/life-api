@@ -195,7 +195,7 @@ class AuthController extends Controller
     }
 
     /**
-     * @OA\Put(path="/store/reset", summary="商家找回密码",
+     * @OA\Post(path="/store/reset", summary="商家找回密码",
      *     tags={"store"},
      *     parameters={
      *     {
